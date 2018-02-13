@@ -8,10 +8,9 @@
   version = "v1.0.0"
 
 [[projects]]
-  branch = "threads"
   name = "github.com/eko/flowbot"
   packages = ["."]
-  revision = "0c3b4024faf535780d3dda859f5def8212e9c353"
+  revision = "98c61f64a9f99d4e02c2b983ebde026c1676e40c"
   source = "github.com/arnested/flowbot"
 
 [[projects]]
@@ -74,6 +73,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "bd67b0c6f410d105dc62c955fdabe9ba741c04b5098cd979dd119d1e2d99bf65"
+  inputs-digest = "0c801eadafa66034f5c50f9f88a15d8641045bd89c09520c03c9877dd9af350a"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -58,10 +58,10 @@ type Entry struct {
     ThreadId    string    `json:"thread_id,omitempty"`
 }
 
+// A Flowdock chat message
 type Chat struct {
     Content          string `json:"content"`
     ExternalUserName string `json:"external_user_name"`
-    Event            string `json:"event,omitempty"`
     ThreadId         string `json:"thread_id,omitempty"`
 }
 
