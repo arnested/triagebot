@@ -8,10 +8,11 @@
   version = "v1.0.0"
 
 [[projects]]
-  branch = "master"
+  branch = "threads"
   name = "github.com/eko/flowbot"
   packages = ["."]
-  revision = "62523b2493f62471e5d1b3a348a076ba9895ef53"
+  revision = "0c3b4024faf535780d3dda859f5def8212e9c353"
+  source = "github.com/arnested/flowbot"
 
 [[projects]]
   name = "github.com/fatih/structs"
@@ -51,19 +52,28 @@
 
 [[projects]]
   name = "github.com/trivago/tgo"
-  packages = ["tcontainer","treflect"]
+  packages = [
+    "tcontainer",
+    "treflect"
+  ]
   revision = "e4d1ddd28c17dd89ed26327cf69fded22060671b"
   version = "v1.0.1"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
-  packages = ["windows","windows/registry","windows/svc","windows/svc/eventlog","windows/svc/mgr"]
+  packages = [
+    "windows",
+    "windows/registry",
+    "windows/svc",
+    "windows/svc/eventlog",
+    "windows/svc/mgr"
+  ]
   revision = "4ff8c001ce4cc464e644b922325097228fce14d8"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "41b5da193016960e3b0d1429cfa187beac2c531f341edf9da2a03165bd79e697"
+  inputs-digest = "bd67b0c6f410d105dc62c955fdabe9ba741c04b5098cd979dd119d1e2d99bf65"
   solver-name = "gps-cdcl"
   solver-version = 1

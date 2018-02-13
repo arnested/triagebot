@@ -24,3 +24,8 @@
 [[constraint]]
   name = "github.com/andygrunwald/go-jira"
   version = "1.0.0"
+
+[[constraint]]
+  name = "github.com/eko/flowbot"
+  source = "github.com/arnested/flowbot"
+  branch = "threads"
