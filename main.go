@@ -33,6 +33,14 @@ func (p *program) run() {
 
 	go triagebot()
 
+	location, err := time.LoadLocation("Europe/Copenhagen")
+	if err != nil {
+		log.Println("Unfortunately can't load a location")
+		log.Println(err)
+	} else {
+		gocron.ChangeLoc(location)
+	}
+
 	gocron.Every(1).Day().At("08:40").Do(dailyStatus)
 	gocron.Every(1).Day().At("12:20").Do(dailyStatus)
 
