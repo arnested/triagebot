@@ -140,7 +140,7 @@ func getStatus(force bool) string {
 	if len(issues) > 0 && (force || c.IsWorkday(now)) {
 		status = fmt.Sprintf("Følgende issues mangler triage:\n\n%s", jira.FormatIssues(issues))
 		if !force {
-			status = fmt.Sprintf("@team, %s", status)
+			status = fmt.Sprintf("@team, %s", strings.ToLower(status))
 		}
 	} else {
 		// Security issues are announced every
