@@ -36,7 +36,11 @@ func GetIssues() []jira.Issue {
 func FormatIssues(issues []jira.Issue) string {
 	var output []string
 	for _, issue := range issues {
-		output = append(output, fmt.Sprintf("* [%s: %s](%s/browse/%s)\n", issue.Key, issue.Fields.Summary, baseURL, issue.Key))
+		// We lowercase the issue key to hide the issue from
+		// Hubot (otherwise Hubot will spam with follow up
+		// comments). Hubot is configured with
+		// HUBOT_JIRA_IGNORECASE=false.
+		output = append(output, fmt.Sprintf("* [%s: %s](%s/browse/%s)\n", strings.ToLower(issue.Key), issue.Fields.Summary, baseURL, strings.ToLower(issue.Key)))
 	}
 
 	return strings.Join(output, "")
