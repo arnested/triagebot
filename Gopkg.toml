@@ -27,5 +27,4 @@
 
 [[constraint]]
   name = "github.com/eko/flowbot"
-  source = "github.com/arnested/flowbot"
-  revision = "98c61f64a9f99d4e02c2b983ebde026c1676e40c"
+  branch = "master"
