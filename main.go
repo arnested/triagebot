@@ -154,7 +154,7 @@ func getStatus(force bool) string {
 
 		// If this is forced or the first workday since
 		// last Wednesday output that there are no issues.
-		if force || workdays == 1 {
+		if force || ((workdays == 1) && c.IsWorkday(now)) {
 			status = fmt.Sprintf("Ingen issues mangler triage.")
 		}
 	}
