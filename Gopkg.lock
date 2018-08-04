@@ -2,12 +2,12 @@
 
 
 [[projects]]
-  digest = "1:c13f6d75c9fe8d15a757a500a6cf270bde6575f7f747351f73648f08dc16fee5"
+  digest = "1:576ebc1b3588aafc3526a73b7c1b66cbb47b8c41a915426a1d61ced6b37ed206"
   name = "github.com/andygrunwald/go-jira"
   packages = ["."]
   pruneopts = ""
-  revision = "acbc88d59582a4885dbd82fd775caa7c15245171"
-  version = "v1.0.0"
+  revision = "0298784c4606cdf01e99644da115863c052a737c"
+  version = "v1.5.0"
 
 [[projects]]
   branch = "master"
@@ -56,6 +56,14 @@
   packages = ["."]
   pruneopts = ""
   revision = "14a49b39b37b67e7c4d0f9df86ff005c55e539ff"
+
+[[projects]]
+  digest = "1:7365acd48986e205ccb8652cc746f09c8b7876030d53710ea6ef7d0bd0dcd7ca"
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  pruneopts = ""
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
 
 [[projects]]
   branch = "master"
