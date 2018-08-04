@@ -35,11 +35,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f1be59a3767d2ece4002a9d5fe0cd6278e404a425ac4519a2dfb2e176c425235"
+  digest = "1:33b76de987ff2353a0bef8f81b15b3ae462f7c47a0fd0e90798de1100ce34aad"
   name = "github.com/jasonlvhit/gocron"
   packages = ["."]
   pruneopts = ""
-  revision = "42a5804d37aa0b9239b265e894a16b8edbf52d54"
+  revision = "54194c9749d48b073c9aeb2c787b6882e95dd0cd"
 
 [[projects]]
   branch = "master"
@@ -51,11 +51,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:337df4fec2a6c41c6399af7cd106be701f1d8dd88e86b9cdae0ce0af7bd0aaca"
+  digest = "1:fed90fa725d3b1bac0a760de64426834dfef4546474cf182f2ec94285afa74a8"
   name = "github.com/kardianos/service"
   packages = ["."]
   pruneopts = ""
-  revision = "14a49b39b37b67e7c4d0f9df86ff005c55e539ff"
+  revision = "615a14ed75099c9eaac6949e22ac2341bf9d3197"
 
 [[projects]]
   digest = "1:7365acd48986e205ccb8652cc746f09c8b7876030d53710ea6ef7d0bd0dcd7ca"
@@ -67,11 +67,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:729f002c7a43745e1644f8d0cfc84f6b2f8eeb79eabfd4708afee225f7916238"
+  digest = "1:7180b8d84d3607d85b11dd6121a1fa24ede4a81b4456cef17e57b4038883ce10"
   name = "github.com/rickar/cal"
   packages = ["."]
   pruneopts = ""
-  revision = "932734f91b75fea735ff15befee3d3420d5da270"
+  revision = "34e84d6b556c34731430a8ca083e4ab96b1b334e"
 
 [[projects]]
   digest = "1:d136f7fd154800ff91bd897fbfa5ed159c3f0bbf01f04c6050a338e50fecfe30"
@@ -86,7 +86,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:a8db4401c2e8e2e7c5d0de5ecdfa9bc97f3778a1eca2e3ca4dd50d3591c9a90e"
+  digest = "1:9ca540a348c8f7bc0eb140238fe1639beebe93f2b19ef326c455f4833ba708c0"
   name = "golang.org/x/sys"
   packages = [
     "windows",
@@ -96,7 +96,7 @@
     "windows/svc/mgr",
   ]
   pruneopts = ""
-  revision = "4ff8c001ce4cc464e644b922325097228fce14d8"
+  revision = "0ffbfd41fbef8ffcf9b62b0b0aa3a5873ed7a4fe"
 
 [solve-meta]
   analyzer-name = "dep"
