@@ -1,0 +1,9 @@
+---
+whitelist:
+  - Apache-2.0
+  - FreeBSD
+  - MIT
+  - NewBSD
+
+exceptions:
+  - github.com/kardianos/service # Uses the zlib license
