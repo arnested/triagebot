@@ -2,20 +2,20 @@
 
 
 [[projects]]
-  digest = "1:c13f6d75c9fe8d15a757a500a6cf270bde6575f7f747351f73648f08dc16fee5"
+  digest = "1:576ebc1b3588aafc3526a73b7c1b66cbb47b8c41a915426a1d61ced6b37ed206"
   name = "github.com/andygrunwald/go-jira"
   packages = ["."]
   pruneopts = ""
-  revision = "acbc88d59582a4885dbd82fd775caa7c15245171"
-  version = "v1.0.0"
+  revision = "0298784c4606cdf01e99644da115863c052a737c"
+  version = "v1.5.0"
 
 [[projects]]
   branch = "master"
-  digest = "1:f4f003e25c7ea2c8fd97b8f7da6a10b3e4d1f4684d3b6aa3e16a488ae0e28448"
+  digest = "1:aa59b96e6dbc7f9a5f2bf9ae336baea9f54d74a696dcd3e0a6081dc200796364"
   name = "github.com/eko/flowbot"
   packages = ["."]
   pruneopts = ""
-  revision = "9eb0895a3e5fb787583ffd3ade43daa20989c06b"
+  revision = "57ae5563eaca41aa5e02bf91decdca3fc6b4b4ff"
 
 [[projects]]
   digest = "1:55848e643a99a9dfceb19e090ce67111328fbb1780f34c62a0430994ff85fb90"
@@ -35,11 +35,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f1be59a3767d2ece4002a9d5fe0cd6278e404a425ac4519a2dfb2e176c425235"
+  digest = "1:33b76de987ff2353a0bef8f81b15b3ae462f7c47a0fd0e90798de1100ce34aad"
   name = "github.com/jasonlvhit/gocron"
   packages = ["."]
   pruneopts = ""
-  revision = "42a5804d37aa0b9239b265e894a16b8edbf52d54"
+  revision = "54194c9749d48b073c9aeb2c787b6882e95dd0cd"
 
 [[projects]]
   branch = "master"
@@ -51,34 +51,42 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:337df4fec2a6c41c6399af7cd106be701f1d8dd88e86b9cdae0ce0af7bd0aaca"
+  digest = "1:b9a852e3614246740659ff6af2b3c39a92e6bcf774f6a53ac1b2a05a5a3625aa"
   name = "github.com/kardianos/service"
   packages = ["."]
   pruneopts = ""
-  revision = "14a49b39b37b67e7c4d0f9df86ff005c55e539ff"
+  revision = "8f267d80f2eb68998661a325c0e53fca4485e626"
+
+[[projects]]
+  digest = "1:7365acd48986e205ccb8652cc746f09c8b7876030d53710ea6ef7d0bd0dcd7ca"
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  pruneopts = ""
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
 
 [[projects]]
   branch = "master"
-  digest = "1:729f002c7a43745e1644f8d0cfc84f6b2f8eeb79eabfd4708afee225f7916238"
+  digest = "1:7180b8d84d3607d85b11dd6121a1fa24ede4a81b4456cef17e57b4038883ce10"
   name = "github.com/rickar/cal"
   packages = ["."]
   pruneopts = ""
-  revision = "932734f91b75fea735ff15befee3d3420d5da270"
+  revision = "34e84d6b556c34731430a8ca083e4ab96b1b334e"
 
 [[projects]]
-  digest = "1:d136f7fd154800ff91bd897fbfa5ed159c3f0bbf01f04c6050a338e50fecfe30"
+  digest = "1:471709b37294bd0697943616565540c7f790a3399edbb4f016fc6808d42e4c52"
   name = "github.com/trivago/tgo"
   packages = [
     "tcontainer",
     "treflect",
   ]
   pruneopts = ""
-  revision = "e4d1ddd28c17dd89ed26327cf69fded22060671b"
-  version = "v1.0.1"
+  revision = "315f955fa460a324c1de2f5d576a87c922c8bd93"
+  version = "v1.0.5"
 
 [[projects]]
   branch = "master"
-  digest = "1:a8db4401c2e8e2e7c5d0de5ecdfa9bc97f3778a1eca2e3ca4dd50d3591c9a90e"
+  digest = "1:85fab7aaca4239017b02462635379f0b2203ab47961216c8e64b5fb48601ab4f"
   name = "golang.org/x/sys"
   packages = [
     "windows",
@@ -88,7 +96,7 @@
     "windows/svc/mgr",
   ]
   pruneopts = ""
-  revision = "4ff8c001ce4cc464e644b922325097228fce14d8"
+  revision = "fa5fdf94c78965f1aa8423f0cc50b8b8d728b05a"
 
 [solve-meta]
   analyzer-name = "dep"
