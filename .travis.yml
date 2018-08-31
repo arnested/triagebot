@@ -5,8 +5,10 @@ go:
   - master
 
 before_install:
+  - go get github.com/frapposelli/wwhrd
   - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 
 script:
   - dep check
+  - wwhrd check
   - go test -v -cover ./...
