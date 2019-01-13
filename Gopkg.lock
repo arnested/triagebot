@@ -18,20 +18,20 @@
   revision = "57ae5563eaca41aa5e02bf91decdca3fc6b4b4ff"
 
 [[projects]]
-  digest = "1:55848e643a99a9dfceb19e090ce67111328fbb1780f34c62a0430994ff85fb90"
+  digest = "1:2defd14040b1ca18840524e9d0f9cfab0ea8d2f2d396b343d221f8bc8e21ab9d"
   name = "github.com/fatih/structs"
   packages = ["."]
   pruneopts = ""
-  revision = "a720dfa8df582c51dee1b36feabb906bde1588bd"
-  version = "v1.0"
+  revision = "4966fc68f5b7593aafa6cbbba2d65ec6e1416047"
+  version = "v1.1.0"
 
 [[projects]]
   branch = "master"
-  digest = "1:9abc49f39e3e23e262594bb4fb70abf74c0c99e94f99153f43b143805e850719"
+  digest = "1:cea4aa2038169ee558bf507d5ea02c94ca85bcca28a4c7bb99fd59b31e43a686"
   name = "github.com/google/go-querystring"
   packages = ["query"]
   pruneopts = ""
-  revision = "53e6ce116135b80d037921a7fdd5138cf32d7a8a"
+  revision = "44c6ddd0a2342c386950e880b658017258da92fc"
 
 [[projects]]
   branch = "master"
@@ -51,27 +51,27 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:b9a852e3614246740659ff6af2b3c39a92e6bcf774f6a53ac1b2a05a5a3625aa"
+  digest = "1:b67a6e3fb3e73af53957f6efad78e9b0083c2bb975907b6a04860f8f9ecc07cd"
   name = "github.com/kardianos/service"
   packages = ["."]
   pruneopts = ""
-  revision = "8f267d80f2eb68998661a325c0e53fca4485e626"
+  revision = "4c239ee84e7bb93441b1b6a3f2db62d40e0e6cbd"
 
 [[projects]]
-  digest = "1:7365acd48986e205ccb8652cc746f09c8b7876030d53710ea6ef7d0bd0dcd7ca"
+  digest = "1:1d7e1867c49a6dd9856598ef7c3123604ea3daabf5b83f303ff457bcbc410b1d"
   name = "github.com/pkg/errors"
   packages = ["."]
   pruneopts = ""
-  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
-  version = "v0.8.0"
+  revision = "ba968bfe8b2f7e042a574c888954fccecfa385b4"
+  version = "v0.8.1"
 
 [[projects]]
-  branch = "master"
-  digest = "1:7180b8d84d3607d85b11dd6121a1fa24ede4a81b4456cef17e57b4038883ce10"
+  digest = "1:68424e690d4ab241fec8b670af106312dd342f63c0652c663d5bb50d2b2ceb6f"
   name = "github.com/rickar/cal"
   packages = ["."]
   pruneopts = ""
-  revision = "34e84d6b556c34731430a8ca083e4ab96b1b334e"
+  revision = "bbef9cc051b459b045d9c8a2e814f245d1bb0865"
+  version = "v1.0.0"
 
 [[projects]]
   digest = "1:471709b37294bd0697943616565540c7f790a3399edbb4f016fc6808d42e4c52"
@@ -86,7 +86,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:85fab7aaca4239017b02462635379f0b2203ab47961216c8e64b5fb48601ab4f"
+  digest = "1:682e21255aca5ab896dd001984417c1a13cea5fc7821c79455d9f9d34e35c6d1"
   name = "golang.org/x/sys"
   packages = [
     "windows",
@@ -96,7 +96,7 @@
     "windows/svc/mgr",
   ]
   pruneopts = ""
-  revision = "fa5fdf94c78965f1aa8423f0cc50b8b8d728b05a"
+  revision = "48ac38b7c8cbedd50b1613c0fccacfc7d88dfcdf"
 
 [solve-meta]
   analyzer-name = "dep"
