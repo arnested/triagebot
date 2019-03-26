@@ -127,13 +127,7 @@ func getStatus(force bool) string {
 	status := ""
 
 	issues := jira.GetIssues()
-	c := cal.NewCalendar()
-
-	cal.AddDanishHolidays(c)
-	c.AddHoliday(
-		cal.DKJuleaften,
-		cal.DKNytaarsaften,
-	)
+	c := workCalendar()
 
 	now := time.Now()
 
@@ -150,4 +144,16 @@ func getStatus(force bool) string {
 		}
 	}
 	return status
+}
+
+func workCalendar() *cal.Calendar {
+	c := cal.NewCalendar()
+
+	cal.AddDanishHolidays(c)
+	c.AddHoliday(
+		cal.DKJuleaften,
+		cal.DKNytaarsaften,
+	)
+
+	return c
 }

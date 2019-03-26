@@ -3,8 +3,6 @@ package main
 import (
 	"testing"
 	"time"
-
-	"github.com/rickar/cal"
 )
 
 var workdays = []struct {
@@ -54,13 +52,7 @@ var workdays = []struct {
 }
 
 func TestWorkdays(t *testing.T) {
-	c := cal.NewCalendar()
-
-	cal.AddDanishHolidays(c)
-	c.AddHoliday(
-		cal.DKJuleaften,
-		cal.DKNytaarsaften,
-	)
+	c := workCalendar()
 
 	for _, tt := range workdays {
 		out := isFirsWorkdaySinceSecurityAnnouncements(c, tt.in)
