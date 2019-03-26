@@ -127,13 +127,7 @@ func getStatus(force bool) string {
 	status := ""
 
 	issues := jira.GetIssues()
-	c := cal.NewCalendar()
-
-	cal.AddDanishHolidays(c)
-	c.AddHoliday(
-		cal.DKJuleaften,
-		cal.DKNytaarsaften,
-	)
+	c := workCalendar()
 
 	now := time.Now()
 
@@ -143,20 +137,23 @@ func getStatus(force bool) string {
 			status = fmt.Sprintf("@team, %s", strings.ToLower(status))
 		}
 	} else {
-		// Security issues are announced every
-		// Wednesday. Calculate our latest Wednesdays.
-		since := ((int(now.Weekday()) - int(time.Wednesday)) + 7) % 7
-		lastWednesday := now.AddDate(0, 0, -since)
-
-		// Calculate how many workdays have passed since last
-		// Wednesday.
-		workdays := c.CountWorkdays(lastWednesday, now) - 1
-
 		// If this is forced or the first workday since
 		// last Wednesday output that there are no issues.
-		if force || ((workdays == 1) && c.IsWorkday(now)) {
+		if force || isFirsWorkdaySinceSecurityAnnouncements(c, now) {
 			status = fmt.Sprintf("Ingen issues mangler triage.")
 		}
 	}
 	return status
+}
+
+func workCalendar() *cal.Calendar {
+	c := cal.NewCalendar()
+
+	cal.AddDanishHolidays(c)
+	c.AddHoliday(
+		cal.DKJuleaften,
+		cal.DKNytaarsaften,
+	)
+
+	return c
 }
