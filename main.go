@@ -7,7 +7,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/arnested/triagebot/jira"
 	"github.com/eko/flowbot"
 	"github.com/jasonlvhit/gocron"
 	"github.com/kardianos/service"
@@ -126,13 +125,13 @@ func triagebot() {
 func getStatus(force bool) string {
 	status := ""
 
-	issues := jira.GetIssues()
+	issues := getIssues()
 	c := workCalendar()
 
 	now := time.Now()
 
 	if len(issues) > 0 && (force || c.IsWorkday(now)) {
-		status = fmt.Sprintf("Følgende issues mangler triage:\n\n%s", jira.FormatIssues(issues))
+		status = fmt.Sprintf("Følgende issues mangler triage:\n\n%s", formatIssues(issues))
 		if !force {
 			status = fmt.Sprintf("@team, %s", strings.ToLower(status))
 		}
