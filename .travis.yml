@@ -2,13 +2,15 @@ language: go
 
 go:
   - "1.11.x"
+  - "1.12.x"
   - master
 
+env:
+  - GO111MODULE=on
+
 before_install:
-  - go get github.com/frapposelli/wwhrd
-  - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+  - GO111MODULE=off go get github.com/frapposelli/wwhrd
 
 script:
-  - dep check
-  - wwhrd check
-  - go test -v -cover ./...
+  - go test -v -race -cover ./...
+  - go mod vendor && wwhrd check
