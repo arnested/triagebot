@@ -18,7 +18,7 @@ func getIssues() []jira.Issue {
 	}
 
 	res, err := jiraClient.Authentication.AcquireSessionCookie(os.Getenv("TRIAGEBOT_JIRA_USER"), os.Getenv("TRIAGEBOT_JIRA_PASS"))
-	if err != nil || res == false {
+	if err != nil || !res {
 		fmt.Printf("Result: %v\n", res)
 		panic(err)
 	}
