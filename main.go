@@ -115,7 +115,7 @@ func dailyStatus() {
 
 func triagebot() {
 
-	flowbot.AddCommand("^[Tt]riage\\?$", func(command flowbot.Command, entry flowbot.Entry) {
+	flowbot.AddCommand("^\\s*[Tt]riage\\s*\\?\\s*$", func(command flowbot.Command, entry flowbot.Entry) {
 		flowbot.SendThreadChat(entry.ThreadId, getStatus(true))
 	})
 
