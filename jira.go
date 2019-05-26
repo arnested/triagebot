@@ -12,14 +12,13 @@ var baseURL = "https://reload.atlassian.net"
 
 // getIssues gets issues.
 func getIssues() []jira.Issue {
-	jiraClient, err := jira.NewClient(nil, baseURL)
-	if err != nil {
-		panic(err)
+	tp := jira.BasicAuthTransport{
+		Username: os.Getenv("TRIAGEBOT_JIRA_USER"),
+		Password: os.Getenv("TRIAGEBOT_JIRA_PASS"),
 	}
 
-	res, err := jiraClient.Authentication.AcquireSessionCookie(os.Getenv("TRIAGEBOT_JIRA_USER"), os.Getenv("TRIAGEBOT_JIRA_PASS"))
-	if err != nil || !res {
-		fmt.Printf("Result: %v\n", res)
+	jiraClient, err := jira.NewClient(tp.Client(), baseURL)
+	if err != nil {
 		panic(err)
 	}
 
