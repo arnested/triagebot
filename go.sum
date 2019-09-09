@@ -1,5 +1,7 @@
 github.com/andygrunwald/go-jira v1.10.0 h1:+HPPK7++6/hW8ygtr2Yc0wd+Qu139NrWiTD/r1cYxO0=
 github.com/andygrunwald/go-jira v1.10.0/go.mod h1:KEsrADP1cEXRxVWTaDtpLyyZN1LM9p6Jn8W5+sDzxhc=
+github.com/arnested/flowbot v0.0.0-20190909092659-e41e6ea432b2 h1:E4hXvBXt9CWoFLipE3wHVngxw3MMTse6nh2gXUCRr+Q=
+github.com/arnested/flowbot v0.0.0-20190909092659-e41e6ea432b2/go.mod h1:kckCf+EDM3PEgmgUhcGiXSgUXPS1d+2gTMrbitzAhTc=
 github.com/eko/flowbot v0.0.0-20180831151913-57ae5563eaca h1:pLtocrtEPxHk4175khAhzZBYraXVOjYQYd+ck0zS9YY=
 github.com/eko/flowbot v0.0.0-20180831151913-57ae5563eaca/go.mod h1:Vz6m7teVmRM6wA/H4/0XvETGtH6Aw6kAllG5HzeTNms=
 github.com/fatih/structs v1.0.0/go.mod h1:9NiDSp5zOcgEDl+j00MP/WkGVPOlPRLejGD8Ga6PJ7M=

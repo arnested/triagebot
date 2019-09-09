@@ -116,6 +116,11 @@ func dailyStatus() {
 func triagebot() {
 
 	flowbot.AddCommand("^\\s*[Tt]riage\\s*\\?\\s*$", func(command flowbot.Command, entry flowbot.Entry) {
+		if entry.User == "239809" {
+			flowbot.FlowdockRobotName = "BenjaminBotten"
+		} else {
+			flowbot.FlowdockRobotName = "TriageBot"
+		}
 		flowbot.SendThreadChat(entry.ThreadId, getStatus(true))
 	})
 

@@ -13,3 +13,5 @@ require (
 	github.com/rickar/cal v1.0.1
 	github.com/trivago/tgo v1.0.5 // indirect
 )
+
+replace github.com/eko/flowbot => github.com/arnested/flowbot v0.0.0-20190909092659-e41e6ea432b2
