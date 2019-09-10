@@ -110,6 +110,7 @@ func main() {
 }
 
 func dailyStatus() {
+	flowbot.FlowdockRobotName = "TriageBot"
 	flowbot.SendChat(getStatus(false))
 }
 
