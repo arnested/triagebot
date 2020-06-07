@@ -1,17 +1,12 @@
-module github.com/arnested/triagebot
+module arnested.dk/go/triagebot
 
-go 1.12
+go 1.13
 
 require (
+	github.com/alecthomas/chroma v0.7.1 // indirect
 	github.com/andygrunwald/go-jira v1.12.0
-	github.com/eko/flowbot v0.0.0-20190911181322-0ac6ab711c76
-	github.com/fatih/structs v1.1.0 // indirect
-	github.com/google/go-querystring v1.0.0 // indirect
-	github.com/jasonlvhit/gocron v0.0.0-20190829164038-7ef3bafdc25c
-	github.com/kardianos/service v1.0.0
-	github.com/pkg/errors v0.8.1 // indirect
-	github.com/rickar/cal v1.0.5
-	github.com/trivago/tgo v1.0.7 // indirect
-	go.uber.org/automaxprocs v1.3.0
-	golang.org/x/sys v0.0.0-20190910064555-bbd175535a8b // indirect
+	github.com/jimmyfrasche/autoreadme v0.0.0-20180503232641-58e67811d607
+	github.com/mattn/go-isatty v0.0.11 // indirect
+	github.com/stretchr/testify v1.5.1 // indirect
+	github.com/tj/go-termd v0.0.1
 )

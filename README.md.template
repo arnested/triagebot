@@ -8,11 +8,12 @@
 [![GoDoc](https://godoc.org/arnested.dk/go/triagebot?status.svg)](https://godoc.org/arnested.dk/go/triagebot)
 
 ```go
-import "arnested.dk/go/triagebot"
+import "{{ .Import }}"
 ```
 
-Package triagebot lists Jira issues awaiting triage.
+{{ .Doc }}
 
-
-
-
+{{if .Bugs}}
+## Bugs
+{{range .Bugs}}* {{.}}{{end}}
+{{end}}
