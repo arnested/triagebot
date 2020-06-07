@@ -6,6 +6,8 @@
 !internal
 !internal/jira
 !internal/jira/*.go
+!internal/zulip
+!internal/zulip/*.go
 !go.mod
 !go.sum
 

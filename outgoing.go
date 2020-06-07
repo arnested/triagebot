@@ -10,8 +10,12 @@ import (
 
 // Payload is the outgoing message received from Zulip.
 type Payload struct {
-	Data  string `json:"data"`
-	Token string `json:"token"`
+	Data    string `json:"data"`
+	Token   string `json:"token"`
+	Message struct {
+		ID          int    `json:"id"`
+		SenderEmail string `json:"sender_email"`
+	} `json:"message"`
 }
 
 // Response is the data we send as an answer to the payload.
@@ -22,7 +26,7 @@ type Response struct {
 // Handle is the entrypoint for the Google Cloud Function.
 func Handle(w http.ResponseWriter, r *http.Request) {
 	finalHandler := http.HandlerFunc(final)
-	chain := parseMiddleware(authMiddleware(finalHandler))
+	chain := parseMiddleware(authMiddleware(reactMiddleware(finalHandler)))
 	chain.ServeHTTP(w, r)
 }
 
