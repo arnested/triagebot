@@ -26,7 +26,7 @@ type Response struct {
 // Handle is the entrypoint for the Google Cloud Function.
 func Handle(w http.ResponseWriter, r *http.Request) {
 	finalHandler := http.HandlerFunc(final)
-	chain := parseMiddleware(authMiddleware(reactMiddleware(finalHandler)))
+	chain := parseMiddleware(authenticationMiddleware(authorizationMiddleware(reactMiddleware(finalHandler))))
 	chain.ServeHTTP(w, r)
 }
 
