@@ -1,10 +1,9 @@
 ---
 whitelist:
-  - Apache-2.0
-  - FreeBSD
   - MIT
   - BSD-2-Clause
   - BSD-3-Clause
+  - Apache-2.0
 
 exceptions:
-  - github.com/kardianos/service # Uses the zlib license
+  - github.com/aybabtme/rgbterm # Uses MIT but isn't detected automatically
