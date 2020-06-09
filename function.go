@@ -25,12 +25,19 @@ type Response struct {
 
 // Handle is the entrypoint for the Google Cloud Function.
 func Handle(w http.ResponseWriter, r *http.Request) {
-	finalHandler := http.HandlerFunc(final)
-	chain := parseMiddleware(authenticationMiddleware(authorizationMiddleware(reactMiddleware(finalHandler))))
-	chain.ServeHTTP(w, r)
+	switch r.URL.Path {
+	// Handle outgoing messages from Zulip.
+	case "/outgoing":
+		outgoingHandler := http.HandlerFunc(outgoing)
+		chain := parseMiddleware(authenticationMiddleware(authorizationMiddleware(reactMiddleware(outgoingHandler))))
+		chain.ServeHTTP(w, r)
+
+	default:
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+	}
 }
 
-func final(w http.ResponseWriter, r *http.Request) {
+func outgoing(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	response := response()
 	json.NewEncoder(w).Encode(response)
