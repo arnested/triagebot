@@ -8,7 +8,7 @@ import (
 
 func reactMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		payload := r.Context().Value(payloadKey{}).(Payload)
+		payload := r.Context().Value(payloadKey{}).(ZulipPayload)
 		go zulip.ThumbsUp(payload.Message.ID)
 
 		next.ServeHTTP(w, r)
