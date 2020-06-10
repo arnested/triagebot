@@ -4,6 +4,8 @@
 # Explicitly allow go files.
 !*.go
 !internal
+!internal/cal
+!internal/cal/*.go
 !internal/jira
 !internal/jira/*.go
 !internal/zulip
