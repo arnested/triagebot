@@ -18,6 +18,13 @@ func workCalendar() *cal.Calendar {
 	return c
 }
 
+// IsWorkday or not?
+func IsWorkday(now time.Time) bool {
+	c := workCalendar()
+
+	return c.IsWorkday(now)
+}
+
 // IsFirstWorkdaySinceDrupalSecurityAnnouncements or not?
 func IsFirstWorkdaySinceDrupalSecurityAnnouncements(now time.Time) bool {
 	c := workCalendar()
