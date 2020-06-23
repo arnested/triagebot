@@ -16,7 +16,7 @@ func authorizationMiddleware(next http.Handler) http.Handler {
 			response := ZulipResponse{
 				Content: ExternalUserText,
 			}
-			json.NewEncoder(w).Encode(response)
+			_ = json.NewEncoder(w).Encode(response)
 
 			return
 		}

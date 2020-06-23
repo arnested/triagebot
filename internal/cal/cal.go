@@ -25,6 +25,8 @@ func IsWorkday(now time.Time) bool {
 	return c.IsWorkday(now)
 }
 
+const weekLength = 7
+
 // IsFirstWorkdaySinceDrupalSecurityAnnouncements or not?
 func IsFirstWorkdaySinceDrupalSecurityAnnouncements(now time.Time) bool {
 	c := workCalendar()
@@ -32,7 +34,7 @@ func IsFirstWorkdaySinceDrupalSecurityAnnouncements(now time.Time) bool {
 	// Drupal Security issues are announced every Wednesday
 	// evening. So we'll handle them at the earliest on
 	// Thursday. Calculate our latest Thursday.
-	since := ((int(now.Weekday()) - int(time.Thursday)) + 7) % 7
+	since := ((int(now.Weekday()) - int(time.Thursday)) + weekLength) % weekLength
 	lastThursday := now.AddDate(0, 0, -since)
 
 	// Calculate how many workdays have passed since last

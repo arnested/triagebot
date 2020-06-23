@@ -20,5 +20,11 @@ func ThumbsUp(messageID int) {
 	payload := url.Values{}
 	payload.Set("emoji_name", "+1")
 
-	http.Post(apiURL.String(), "application/x-www-form-urlencoded", strings.NewReader(payload.Encode()))
+	response, err := http.Post(apiURL.String(), "application/x-www-form-urlencoded", strings.NewReader(payload.Encode()))
+
+	if err != nil {
+		return
+	}
+
+	defer response.Body.Close()
 }
