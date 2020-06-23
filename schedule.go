@@ -71,7 +71,7 @@ func schedule(w http.ResponseWriter, r *http.Request) {
 
 	errs := sender.Send(message, nil)
 
-	if errs != nil && len(errs) > 0 && errs[0] != nil {
+	if len(errs) > 0 && errs[0] != nil {
 		http.Error(w, fmt.Sprintf("%v", errs), http.StatusServiceUnavailable)
 
 		return

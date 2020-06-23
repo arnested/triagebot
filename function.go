@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+//nolint:gochecknoinits // It's a perfect place to check required constraints of a Google Cloud Function.
 func init() {
 	missing := []string{}
 
@@ -38,7 +39,10 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 	// Handle outgoing messages from Zulip.
 	case "/outgoing":
 		outgoingHandler := http.HandlerFunc(outgoing)
-		chain := parseZulipMiddleware(authenticationOutgoingMiddleware(authorizationMiddleware(reactMiddleware(outgoingHandler))))
+		chain := parseZulipMiddleware(
+			authenticationOutgoingMiddleware(
+				authorizationMiddleware(
+					reactMiddleware(outgoingHandler))))
 		chain.ServeHTTP(w, r)
 
 	// Handle schedules events from Google Cloud Scheduler.
