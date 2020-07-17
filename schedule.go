@@ -37,7 +37,6 @@ func schedule(w http.ResponseWriter, r *http.Request) {
 	}
 
 	sender, err := shoutrrr.CreateSender(zulipShoutrrrServiceURL.String())
-
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusOK)
 
@@ -45,7 +44,6 @@ func schedule(w http.ResponseWriter, r *http.Request) {
 	}
 
 	issues, err := jira.GetIssues()
-
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusServiceUnavailable)
 

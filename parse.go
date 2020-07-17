@@ -19,7 +19,6 @@ func parseZulipMiddleware(next http.Handler) http.Handler {
 
 		payload := ZulipPayload{}
 		err := json.NewDecoder(r.Body).Decode(&payload)
-
 		if err != nil {
 			response := fmt.Sprintf("could not parse request body: %s", err.Error())
 			http.Error(w, response, http.StatusBadRequest)
@@ -43,7 +42,6 @@ func parseScheduleMiddleware(next http.Handler) http.Handler {
 
 		payload := SchedulePayload{}
 		err := json.NewDecoder(r.Body).Decode(&payload)
-
 		if err != nil {
 			response := fmt.Sprintf("could not parse request body: %s", err.Error())
 			http.Error(w, response, http.StatusBadRequest)

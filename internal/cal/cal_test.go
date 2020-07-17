@@ -8,7 +8,7 @@ import (
 )
 
 func TestWorkdays(t *testing.T) {
-	var workdays = []struct {
+	workdays := []struct {
 		in  time.Time
 		out bool
 	}{
