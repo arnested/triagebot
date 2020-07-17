@@ -23,8 +23,8 @@ func GetIssues() ([]jira.Issue, error) {
 	}
 
 	jql := fmt.Sprintf("filter = %s", os.Getenv("TRIAGEBOT_JIRA_FILTER"))
-	issues, _, err := jiraClient.Issue.Search(jql, nil)
 
+	issues, _, err := jiraClient.Issue.Search(jql, nil)
 	if err != nil {
 		return nil, err
 	}

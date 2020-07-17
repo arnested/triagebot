@@ -13,7 +13,6 @@ func main() {
 	var c termd.Compiler
 
 	issues, err := jira.GetIssues()
-
 	if err != nil {
 		fmt.Printf("error getting issues: %s\n", err.Error())
 		os.Exit(1)

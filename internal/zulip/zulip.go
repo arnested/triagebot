@@ -1,12 +1,16 @@
 package zulip
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
+	"time"
 )
+
+const timeout time.Duration = 5 * time.Second
 
 // ThumbsUp on a message.
 func ThumbsUp(messageID int) {
@@ -20,8 +24,17 @@ func ThumbsUp(messageID int) {
 	payload := url.Values{}
 	payload.Set("emoji_name", "+1")
 
-	response, err := http.Post(apiURL.String(), "application/x-www-form-urlencoded", strings.NewReader(payload.Encode()))
+	ctx, cancel := context.WithTimeout(context.TODO(), timeout)
+	defer cancel()
 
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, apiURL.String(), strings.NewReader(payload.Encode()))
+	if err != nil {
+		return
+	}
+
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	response, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return
 	}

@@ -34,7 +34,6 @@ func response() ZulipResponse {
 	response := ZulipResponse{}
 
 	issues, err := jira.GetIssues()
-
 	if err != nil {
 		response.Content = fmt.Sprintf("error getting issues: %s", err.Error())
 
