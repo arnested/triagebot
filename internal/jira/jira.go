@@ -11,7 +11,7 @@ import (
 const baseURL = "https://reload.atlassian.net"
 
 // GetIssues gets issues.
-func GetIssues() ([]jira.Issue, error) {
+func GetIssues(filterID string) ([]jira.Issue, error) {
 	tp := jira.BasicAuthTransport{
 		Username: os.Getenv("TRIAGEBOT_JIRA_USER"),
 		Password: os.Getenv("TRIAGEBOT_JIRA_PASS"),
@@ -22,7 +22,7 @@ func GetIssues() ([]jira.Issue, error) {
 		return nil, err
 	}
 
-	jql := fmt.Sprintf("filter = %s", os.Getenv("TRIAGEBOT_JIRA_FILTER"))
+	jql := fmt.Sprintf("filter = %s", os.Getenv(filterID))
 
 	issues, _, err := jiraClient.Issue.Search(jql, nil)
 	if err != nil {
@@ -42,9 +42,15 @@ func FormatIssues(issues []jira.Issue) string {
 		// spam with follow up comments).
 		issueKeyHTML := strings.Replace(issue.Key, "-", "&#x2D;", 1)
 		issueKeyURL := strings.Replace(issue.Key, "-", "%2d", 1)
+
+		assignee := ""
+		if issue.Fields.Assignee != nil {
+			assignee = fmt.Sprintf(" - %s", issue.Fields.Assignee.DisplayName)
+		}
+
 		output = append(
 			output,
-			fmt.Sprintf("* [%s](%s/browse/%s) - %s", issueKeyHTML, baseURL, issueKeyURL, issue.Fields.Summary),
+			fmt.Sprintf("* [%s](%s/browse/%s) - %s%s", issueKeyHTML, baseURL, issueKeyURL, issue.Fields.Summary, assignee),
 		)
 	}
 

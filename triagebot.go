@@ -8,3 +8,6 @@ const NoIssuesNeedTriage = "Ingen issues mangler triage"
 
 // ExternalUserText is the answer given to users without a @reload.dk e-mail.
 const ExternalUserText = "Kun brugere med en *@reload.dk* adresse kan se hvad der mangler triage"
+
+// UnreleasedText is the text leading the list of unreleased issues.
+const UnreleasedText = "Følgende issues der er vurderet critical/blocker er endnu ikke releaset"
