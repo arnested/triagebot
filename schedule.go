@@ -43,28 +43,39 @@ func schedule(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	issues, err := jira.GetIssues()
+	issues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusServiceUnavailable)
 
 		return
 	}
 
-	if len(issues) == 0 && !cal.IsFirstWorkdaySinceDrupalSecurityAnnouncements(time.Now()) {
+	unreleasedIssues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER_UNRELEASED")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusServiceUnavailable)
+
+		return
+	}
+
+	if len(issues) == 0 && len(unreleasedIssues) == 0 && !cal.IsFirstWorkdaySinceDrupalSecurityAnnouncements(time.Now()) {
 		http.Error(w, http.StatusText(http.StatusNoContent), http.StatusNoContent)
 
 		return
 	}
 
-	message := fmt.Sprintf("%s:\n\n%s", LeadText, jira.FormatIssues(issues))
+	message := fmt.Sprintln(NoIssuesNeedTriage)
+
+	if len(issues) > 0 {
+		message = fmt.Sprintf("%s:\n\n%s", LeadText, jira.FormatIssues(issues))
+	}
+
+	if len(unreleasedIssues) > 0 {
+		message = fmt.Sprintf("%s\n%s:\n\n%s", message, UnreleasedText, jira.FormatIssues(unreleasedIssues))
+	}
 
 	// Only tag people on work days.
 	if cal.IsWorkday(time.Now()) {
 		message = fmt.Sprintf("%s, %s", tag, message)
-	}
-
-	if len(issues) == 0 {
-		message = fmt.Sprintln(NoIssuesNeedTriage)
 	}
 
 	errs := sender.Send(message, nil)
