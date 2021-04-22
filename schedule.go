@@ -70,7 +70,7 @@ func schedule(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(unreleasedIssues) > 0 {
-		message = fmt.Sprintf("%s\n%s:\n\n%s", message, UnreleasedText, jira.FormatIssues(unreleasedIssues))
+		message = fmt.Sprintf("%s\n\n\n%s:\n\n%s", message, UnreleasedText, jira.FormatIssues(unreleasedIssues))
 	}
 
 	// Only tag people on work days.

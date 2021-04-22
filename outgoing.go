@@ -56,7 +56,7 @@ func response() ZulipResponse {
 	}
 
 	if len(unreleasedIssues) > 0 {
-		response.Content = fmt.Sprintf("%s\n%s:\n\n%s", response.Content, UnreleasedText, jira.FormatIssues(unreleasedIssues))
+		response.Content = fmt.Sprintf("%s\n\n\n%s:\n\n%s", response.Content, UnreleasedText, jira.FormatIssues(unreleasedIssues))
 	}
 
 	return response
