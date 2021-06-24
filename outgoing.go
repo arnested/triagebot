@@ -59,5 +59,8 @@ func response() ZulipResponse {
 		response.Content = fmt.Sprintf("%s\n\n\n%s:\n\n%s", response.Content, UnreleasedText, jira.FormatIssues(unreleasedIssues))
 	}
 
+	// Add an info link to the response.
+	response.Content = fmt.Sprintf("[🛈](https://reload.atlassian.net/wiki/spaces/RW/pages/89030669/Sikkerhedstriage) %s", response.Content)
+
 	return response
 }
