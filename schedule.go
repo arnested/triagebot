@@ -78,6 +78,9 @@ func schedule(w http.ResponseWriter, r *http.Request) {
 		message = fmt.Sprintf("%s, %s", tag, message)
 	}
 
+	// Add an info link to the message.
+	message = fmt.Sprintf("[🛈](https://reload.atlassian.net/wiki/spaces/RW/pages/89030669/Sikkerhedstriage) %s", message)
+
 	errs := sender.Send(message, nil)
 
 	if len(errs) > 0 && errs[0] != nil {
