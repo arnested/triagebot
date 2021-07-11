@@ -1,0 +1,31 @@
+on: push
+name: Test
+
+jobs:
+  go-versions:
+    name: Lookup go versions
+    runs-on: ubuntu-latest
+    outputs:
+      latest: ${{ steps.versions.outputs.latest }}
+      minimal: ${{ steps.versions.outputs.minimal }}
+      matrix: ${{ steps.versions.outputs.matrix }}
+      module: ${{ steps.versions.outputs.module }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: arnested/go-version-action@v1
+      id: versions
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: go-versions
+    strategy:
+      matrix:
+        version: ${{ fromJSON(needs.go-versions.outputs.matrix) }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.version }}
+    - name: go test
+      run: go test -v -race -cover -covermode=atomic -coverprofile=coverage.txt ./...
