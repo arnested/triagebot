@@ -64,17 +64,20 @@ func schedule(w http.ResponseWriter, r *http.Request) {
 	}
 
 	message := fmt.Sprintln(NoIssuesNeedTriage)
+	needsAction := false
 
 	if len(issues) > 0 {
 		message = fmt.Sprintf("%s:\n\n%s", LeadText, jira.FormatIssues(issues))
+		needsAction = true
 	}
 
 	if len(unreleasedIssues) > 0 {
 		message = fmt.Sprintf("%s\n\n\n%s:\n\n%s", message, UnreleasedText, jira.FormatIssues(unreleasedIssues))
+		needsAction = true
 	}
 
-	// Only tag people on work days.
-	if cal.IsWorkday(time.Now()) {
+	// Only tag people if they need to do something - and if it's a work day.
+	if needsAction && cal.IsWorkday(time.Now()) {
 		message = fmt.Sprintf("%s, %s", tag, message)
 	}
 
