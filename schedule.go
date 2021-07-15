@@ -39,27 +39,23 @@ func schedule(w http.ResponseWriter, r *http.Request) {
 	sender, err := shoutrrr.CreateSender(zulipShoutrrrServiceURL.String())
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusOK)
-
 		return
 	}
 
 	issues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusServiceUnavailable)
-
 		return
 	}
 
 	unreleasedIssues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER_UNRELEASED")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusServiceUnavailable)
-
 		return
 	}
 
 	if len(issues) == 0 && len(unreleasedIssues) == 0 && !cal.IsFirstWorkdaySinceDrupalSecurityAnnouncements(time.Now()) {
 		http.Error(w, http.StatusText(http.StatusNoContent), http.StatusNoContent)
-
 		return
 	}
 
@@ -88,7 +84,6 @@ func schedule(w http.ResponseWriter, r *http.Request) {
 
 	if len(errs) > 0 && errs[0] != nil {
 		http.Error(w, fmt.Sprintf("%v", errs), http.StatusServiceUnavailable)
-
 		return
 	}
 
