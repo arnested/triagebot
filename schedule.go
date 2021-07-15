@@ -39,42 +39,41 @@ func schedule(w http.ResponseWriter, r *http.Request) {
 	sender, err := shoutrrr.CreateSender(zulipShoutrrrServiceURL.String())
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusOK)
-
 		return
 	}
 
 	issues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusServiceUnavailable)
-
 		return
 	}
 
 	unreleasedIssues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER_UNRELEASED")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusServiceUnavailable)
-
 		return
 	}
 
 	if len(issues) == 0 && len(unreleasedIssues) == 0 && !cal.IsFirstWorkdaySinceDrupalSecurityAnnouncements(time.Now()) {
 		http.Error(w, http.StatusText(http.StatusNoContent), http.StatusNoContent)
-
 		return
 	}
 
 	message := fmt.Sprintln(NoIssuesNeedTriage)
+	needsAction := false
 
 	if len(issues) > 0 {
 		message = fmt.Sprintf("%s:\n\n%s", LeadText, jira.FormatIssues(issues))
+		needsAction = true
 	}
 
 	if len(unreleasedIssues) > 0 {
 		message = fmt.Sprintf("%s\n\n\n%s:\n\n%s", message, UnreleasedText, jira.FormatIssues(unreleasedIssues))
+		needsAction = true
 	}
 
-	// Only tag people on work days.
-	if cal.IsWorkday(time.Now()) {
+	// Only tag people if they need to do something - and if it's a work day.
+	if needsAction && cal.IsWorkday(time.Now()) {
 		message = fmt.Sprintf("%s, %s", tag, message)
 	}
 
@@ -85,7 +84,6 @@ func schedule(w http.ResponseWriter, r *http.Request) {
 
 	if len(errs) > 0 && errs[0] != nil {
 		http.Error(w, fmt.Sprintf("%v", errs), http.StatusServiceUnavailable)
-
 		return
 	}
 
