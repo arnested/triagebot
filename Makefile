@@ -1,7 +1,7 @@
 .PHONY: doc test check-env deploy logs post-fixture
 
 ENTRY_POINT=Handle
-RUNTIME=go113
+RUNTIME=$(shell grep '^go ' go.mod | tr -d '.' | tr -d ' ')
 MEMORY=128M
 
 export GO111MODULE=on
