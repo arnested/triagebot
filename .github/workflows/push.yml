@@ -83,9 +83,9 @@ jobs:
       id: runtime
     - uses: google-github-actions/deploy-cloud-functions@main
       with:
-        name: ${{ secrets.CF_NAME }}
-        region: ${{ secrets.CF_REGION }}
-        project_id: ${{ secrets.CF_PROJECT }}
+        name: ${{ secrets.GCF_NAME }}
+        region: ${{ secrets.GCF_REGION }}
+        project_id: ${{ secrets.GCF_PROJECT }}
         runtime: ${{ steps.runtime.outputs.go-runtime }}
         entry_point: "Handle"
         credentials: ${{ secrets.GCLOUD_AUTH }}
