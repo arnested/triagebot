@@ -10,6 +10,7 @@ import (
 	"arnested.dk/go/triagebot/internal/cal"
 	"arnested.dk/go/triagebot/internal/jira"
 	"github.com/containrrr/shoutrrr"
+	"github.com/containrrr/shoutrrr/pkg/router"
 )
 
 const tag = "@**all**"
@@ -20,14 +21,14 @@ type SchedulePayload struct {
 	Token  string `json:"token"`
 }
 
-func schedule(w http.ResponseWriter, r *http.Request) {
-	payload := r.Context().Value(payloadKey{}).(SchedulePayload)
+func shoutrrrSender(stream string) (*router.ServiceRouter, error) {
 	t := time.Now()
 
 	query := &url.Values{}
-	query.Set("stream", payload.Stream)
+	query.Set("stream", stream)
 	query.Set("topic", fmt.Sprintf("%d-%02d-%02d", t.Year(), t.Month(), t.Day()))
 
+	//nolint:exhaustivestruct
 	zulipShoutrrrServiceURL := url.URL{
 		User:     url.UserPassword(os.Getenv("ZULIP_BOT_MAIL"), os.Getenv("ZULIP_BOT_APIKEY")),
 		Host:     "reload.zulipchat.com",
@@ -38,25 +39,25 @@ func schedule(w http.ResponseWriter, r *http.Request) {
 
 	sender, err := shoutrrr.CreateSender(zulipShoutrrrServiceURL.String())
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusOK)
-		return
+		return nil, fmt.Errorf("creating shoutrrr sender: %w", err)
 	}
 
+	return sender, nil
+}
+
+func message() (string, bool, error) {
 	issues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusServiceUnavailable)
-		return
+		return "", false, fmt.Errorf("jira filter: %w", err)
 	}
 
 	unreleasedIssues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER_UNRELEASED")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusServiceUnavailable)
-		return
+		return "", false, fmt.Errorf("jira unreleased filter: %w", err)
 	}
 
 	if len(issues) == 0 && len(unreleasedIssues) == 0 && !cal.IsFirstWorkdaySinceDrupalSecurityAnnouncements(time.Now()) {
-		http.Error(w, http.StatusText(http.StatusNoContent), http.StatusNoContent)
-		return
+		return "", false, nil
 	}
 
 	message := fmt.Sprintln(NoIssuesNeedTriage)
@@ -80,12 +81,46 @@ func schedule(w http.ResponseWriter, r *http.Request) {
 	// Add an info link to the message.
 	message = fmt.Sprintf("[🛈](https://reload.atlassian.net/wiki/spaces/RW/pages/89030669/Sikkerhedstriage) %s", message)
 
-	errs := sender.Send(message, nil)
+	return message, true, nil
+}
 
-	if len(errs) > 0 && errs[0] != nil {
-		http.Error(w, fmt.Sprintf("%v", errs), http.StatusServiceUnavailable)
+func schedule(resp http.ResponseWriter, req *http.Request) {
+	payloadData := req.Context().Value(payloadKey{})
+
+	payload, ok := payloadData.(SchedulePayload)
+	if !ok {
+		http.Error(resp, http.StatusText(http.StatusNoContent), http.StatusNoContent)
+
 		return
 	}
 
-	w.WriteHeader(http.StatusCreated)
+	sender, err := shoutrrrSender(payload.Stream)
+	if err != nil {
+		http.Error(resp, err.Error(), http.StatusOK)
+
+		return
+	}
+
+	message, ok, err := message()
+	if err != nil {
+		http.Error(resp, err.Error(), http.StatusServiceUnavailable)
+
+		return
+	}
+
+	if !ok {
+		http.Error(resp, http.StatusText(http.StatusNoContent), http.StatusNoContent)
+
+		return
+	}
+
+	errs := sender.Send(message, nil)
+
+	if len(errs) > 0 && errs[0] != nil {
+		http.Error(resp, fmt.Sprintf("%v", errs), http.StatusServiceUnavailable)
+
+		return
+	}
+
+	resp.WriteHeader(http.StatusCreated)
 }

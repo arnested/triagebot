@@ -7,15 +7,15 @@ import (
 )
 
 func workCalendar() *cal.Calendar {
-	c := cal.NewCalendar()
+	workcal := cal.NewCalendar()
 
-	cal.AddDanishHolidays(c)
-	c.AddHoliday(
+	cal.AddDanishHolidays(workcal)
+	workcal.AddHoliday(
 		cal.DKJuleaften,
 		cal.DKNytaarsaften,
 	)
 
-	return c
+	return workcal
 }
 
 // IsWorkday or not?
@@ -29,7 +29,7 @@ const weekLength = 7
 
 // IsFirstWorkdaySinceDrupalSecurityAnnouncements or not?
 func IsFirstWorkdaySinceDrupalSecurityAnnouncements(now time.Time) bool {
-	c := workCalendar()
+	cal := workCalendar()
 
 	// Drupal Security issues are announced every Wednesday
 	// evening. So we'll handle them at the earliest on
@@ -39,9 +39,9 @@ func IsFirstWorkdaySinceDrupalSecurityAnnouncements(now time.Time) bool {
 
 	// Calculate how many workdays have passed since last
 	// Thursday.
-	workdays := c.CountWorkdays(lastThursday, now) - 1
+	workdays := cal.CountWorkdays(lastThursday, now) - 1
 
 	// This is the first workday if zero workdays have passed and
 	// today _is_ a workday.
-	return ((workdays == 0) && c.IsWorkday(now))
+	return ((workdays == 0) && cal.IsWorkday(now))
 }

@@ -8,6 +8,7 @@ import (
 	"arnested.dk/go/triagebot/internal/jira"
 )
 
+//nolint:tagliatelle
 // ZulipPayload is the outgoing message received from Zulip.
 type ZulipPayload struct {
 	Data    string `json:"data"`
@@ -27,10 +28,12 @@ func outgoing(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
 	response := response()
+	//nolint:errchkjson
 	_ = json.NewEncoder(w).Encode(response)
 }
 
 func response() ZulipResponse {
+	//nolint:exhaustivestruct
 	response := ZulipResponse{}
 
 	issues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER")
@@ -56,11 +59,19 @@ func response() ZulipResponse {
 	}
 
 	if len(unreleasedIssues) > 0 {
-		response.Content = fmt.Sprintf("%s\n\n\n%s:\n\n%s", response.Content, UnreleasedText, jira.FormatIssues(unreleasedIssues))
+		response.Content = fmt.Sprintf(
+			"%s\n\n\n%s:\n\n%s",
+			response.Content,
+			UnreleasedText,
+			jira.FormatIssues(unreleasedIssues),
+		)
 	}
 
 	// Add an info link to the response.
-	response.Content = fmt.Sprintf("[🛈](https://reload.atlassian.net/wiki/spaces/RW/pages/89030669/Sikkerhedstriage) %s", response.Content)
+	response.Content = fmt.Sprintf(
+		"[🛈](https://reload.atlassian.net/wiki/spaces/RW/pages/89030669/Sikkerhedstriage) %s",
+		response.Content,
+	)
 
 	return response
 }

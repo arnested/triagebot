@@ -10,47 +10,50 @@ import (
 type payloadKey struct{}
 
 func parseZulipMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPost {
-			http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+	return http.HandlerFunc(func(resp http.ResponseWriter, req *http.Request) {
+		if req.Method != http.MethodPost {
+			http.Error(resp, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 
 			return
 		}
 
+		//nolint:exhaustivestruct
 		payload := ZulipPayload{}
-		err := json.NewDecoder(r.Body).Decode(&payload)
+
+		err := json.NewDecoder(req.Body).Decode(&payload)
 		if err != nil {
 			response := fmt.Sprintf("could not parse request body: %s", err.Error())
-			http.Error(w, response, http.StatusBadRequest)
+			http.Error(resp, response, http.StatusBadRequest)
 
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), payloadKey{}, payload)
+		ctx := context.WithValue(req.Context(), payloadKey{}, payload)
 
-		next.ServeHTTP(w, r.WithContext(ctx))
+		next.ServeHTTP(resp, req.WithContext(ctx))
 	})
 }
 
 func parseScheduleMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPost {
-			http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+	return http.HandlerFunc(func(resp http.ResponseWriter, req *http.Request) {
+		if req.Method != http.MethodPost {
+			http.Error(resp, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 
 			return
 		}
 
+		//nolint:exhaustivestruct
 		payload := SchedulePayload{}
-		err := json.NewDecoder(r.Body).Decode(&payload)
+		err := json.NewDecoder(req.Body).Decode(&payload)
 		if err != nil {
 			response := fmt.Sprintf("could not parse request body: %s", err.Error())
-			http.Error(w, response, http.StatusBadRequest)
+			http.Error(resp, response, http.StatusBadRequest)
 
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), payloadKey{}, payload)
+		ctx := context.WithValue(req.Context(), payloadKey{}, payload)
 
-		next.ServeHTTP(w, r.WithContext(ctx))
+		next.ServeHTTP(resp, req.WithContext(ctx))
 	})
 }
