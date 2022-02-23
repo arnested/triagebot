@@ -79,15 +79,18 @@ jobs:
     needs: build_and_test
     steps:
     - uses: actions/checkout@v2
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-      with:
-        version: '290.0.1'
-        service_account_key: ${{ secrets.GCLOUD_AUTH }}
     - run: echo ::set-output name=go-runtime::$(echo -n go${{ needs.go-versions.outputs.minimal }} | tr -d '.')
       id: runtime
-    - run: gcloud functions deploy ${{secrets.GCF_NAME}} --project=${{secrets.GCF_PROJECT}} --region=${{secrets.GCF_REGION}}
-          --entry-point=Handle --runtime=${{ steps.runtime.outputs.go-runtime }} --trigger-http --memory=128M
-          --format='yaml(status,updateTime,versionId)'
+    - uses: google-github-actions/deploy-cloud-functions@main
+      with:
+        name: ${{ secrets.CF_NAME }}
+        region: ${{ secrets.CF_REGION }}
+        project_id: ${{ secrets.CF_PROJECT }}
+        runtime: ${{ steps.runtime.outputs.go-runtime }}
+        entry_point: "Handle"
+        credentials: ${{ secrets.GCLOUD_AUTH }}
+        memory_mb: 128
+        env_vars: TRIAGEBOT_JIRA_USER=${{ secrets.TRIAGEBOT_JIRA_USER }},TRIAGEBOT_JIRA_PASS=${{ secrets.TRIAGEBOT_JIRA_PASS }},TRIAGEBOT_JIRA_FILTER=22400,ZULIP_TOKEN=${{ secrets.ZULIP_TOKEN }},ZULIP_BOT_MAIL=${{ secrets.ZULIP_BOT_MAIL }},ZULIP_BOT_APIKEY=${{ secrets.ZULIP_BOT_APIKEY }},TZ=Europe/Copenhagen,TRIAGEBOT_JIRA_FILTER_UNRELEASED=28200
     - name: Post status to Zulip
       if: ${{ always() }}
       uses: containrrr/shoutrrr-action@v1
