@@ -76,7 +76,9 @@ jobs:
     name: Deploy
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    needs: build_and_test
+    needs:
+    - build_and_test
+    - go-versions
     steps:
     - uses: actions/checkout@v2
     - run: echo ::set-output name=go-runtime::$(echo -n go${{ needs.go-versions.outputs.minimal }} | tr -d '.')

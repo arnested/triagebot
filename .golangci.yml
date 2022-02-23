@@ -1,3 +1,6 @@
 linters:
   enable-all: true
 
+linters-settings:
+  varnamelen:
+    ignore-type-assert-ok: true

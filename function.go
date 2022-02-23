@@ -35,8 +35,8 @@ func init() {
 }
 
 // Handle is the entrypoint for the Google Cloud Function.
-func Handle(w http.ResponseWriter, r *http.Request) {
-	switch r.URL.Path {
+func Handle(resp http.ResponseWriter, req *http.Request) {
+	switch req.URL.Path {
 	// Handle outgoing messages from Zulip.
 	case "/outgoing":
 		outgoingHandler := http.HandlerFunc(outgoing)
@@ -44,15 +44,15 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 			authenticationOutgoingMiddleware(
 				authorizationMiddleware(
 					reactMiddleware(outgoingHandler))))
-		chain.ServeHTTP(w, r)
+		chain.ServeHTTP(resp, req)
 
 	// Handle schedules events from Google Cloud Scheduler.
 	case "/schedule":
 		scheduleHandler := http.HandlerFunc(schedule)
 		chain := parseScheduleMiddleware(authenticationScheduleMiddleware(scheduleHandler))
-		chain.ServeHTTP(w, r)
+		chain.ServeHTTP(resp, req)
 
 	default:
-		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		http.Error(resp, http.StatusText(http.StatusNotFound), http.StatusNotFound)
 	}
 }

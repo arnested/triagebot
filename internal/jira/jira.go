@@ -12,6 +12,7 @@ const baseURL = "https://reload.atlassian.net"
 
 // GetIssues gets issues.
 func GetIssues(filterID string) ([]jira.Issue, error) {
+	//nolint:exhaustivestruct
 	tp := jira.BasicAuthTransport{
 		Username: os.Getenv("TRIAGEBOT_JIRA_USER"),
 		Password: os.Getenv("TRIAGEBOT_JIRA_PASS"),
@@ -19,14 +20,14 @@ func GetIssues(filterID string) ([]jira.Issue, error) {
 
 	jiraClient, err := jira.NewClient(tp.Client(), baseURL)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("getting jira client: %w", err)
 	}
 
 	jql := fmt.Sprintf("filter = %s", os.Getenv(filterID))
 
 	issues, _, err := jiraClient.Issue.Search(jql, nil)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("getting jira issues: %w", err)
 	}
 
 	return issues, nil

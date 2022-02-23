@@ -14,6 +14,7 @@ const timeout time.Duration = 5 * time.Second
 
 // ThumbsUp on a message.
 func ThumbsUp(messageID int) {
+	//nolint:exhaustivestruct
 	apiURL := url.URL{
 		User:   url.UserPassword(os.Getenv("ZULIP_BOT_MAIL"), os.Getenv("ZULIP_BOT_APIKEY")),
 		Host:   "reload.zulipchat.com",

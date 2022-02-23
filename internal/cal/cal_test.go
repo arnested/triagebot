@@ -8,6 +8,8 @@ import (
 )
 
 func TestWorkdays(t *testing.T) {
+	t.Parallel()
+
 	workdays := []struct {
 		in  time.Time
 		out bool
