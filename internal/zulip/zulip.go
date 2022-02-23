@@ -13,7 +13,7 @@ import (
 const timeout time.Duration = 5 * time.Second
 
 // ThumbsUp on a message.
-func ThumbsUp(messageID int) {
+func ThumbsUp(ctx context.Context, messageID int) {
 	//nolint:exhaustivestruct
 	apiURL := url.URL{
 		User:   url.UserPassword(os.Getenv("ZULIP_BOT_MAIL"), os.Getenv("ZULIP_BOT_APIKEY")),
@@ -25,7 +25,7 @@ func ThumbsUp(messageID int) {
 	payload := url.Values{}
 	payload.Set("emoji_name", "+1")
 
-	ctx, cancel := context.WithTimeout(context.TODO(), timeout)
+	ctx, cancel := context.WithTimeout(ctx, timeout)
 	defer cancel()
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, apiURL.String(), strings.NewReader(payload.Encode()))
