@@ -1,8 +1,21 @@
 on: push
 name: Build and test
 jobs:
+  go-versions:
+    name: Lookup go versions
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.versions.outputs.matrix }}
+      minimal: ${{ steps.versions.outputs.minimal }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: arnested/go-version-action@v1
+      id: versions
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
   go_generate:
     name: Check generated code is up to date
+    needs: go-versions
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -11,7 +24,7 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: '1.13'
+        go-version: ${{ needs.go-versions.outputs.minimal }}
     - name: go generate
       env:
         GO111MODULE: 'on'
@@ -21,10 +34,11 @@ jobs:
       run: (cd go/src/arnested.dk/go/triagebot && git diff --exit-code)
   build_and_test:
     name: Build and test
+    needs: go-versions
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go-version: ['1.13', '1.14']
+        go-version: ${{ fromJSON(needs.go-versions.outputs.matrix) }}
     steps:
     - uses: actions/checkout@v2
     - name: Install Go
@@ -47,7 +61,7 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: '1.13'
+        go-version: ${{ needs.go-versions.outputs.minimal }}
     - name: Install wwhrd
       env:
         GO111MODULE: 'off'
@@ -69,6 +83,14 @@ jobs:
       with:
         version: '290.0.1'
         service_account_key: ${{ secrets.GCLOUD_AUTH }}
+    - run: echo ::set-output name=go-runtime::$(echo -n go${{ needs.go-versions.outputs.minimal }} | tr -d '.')
+      id: runtime
     - run: gcloud functions deploy ${{secrets.GCF_NAME}} --project=${{secrets.GCF_PROJECT}} --region=${{secrets.GCF_REGION}}
-          --entry-point=Handle --runtime=go113 --trigger-http --memory=128M
+          --entry-point=Handle --runtime=${{ steps.runtime.outputs.go-runtime }} --trigger-http --memory=128M
           --format='yaml(status,updateTime,versionId)'
+    - name: Post status to Zulip
+      if: ${{ always() }}
+      uses: containrrr/shoutrrr-action@v1
+      with:
+        url: "${{ secrets.ZULIP_SHOUTRRR_URL }}?stream=logs&topic=triagebot"
+        message: "Deployed `${{ github.repository }}`@`${{ github.sha }}` to Google Cloud Function `${{ secrets.CF_NAME }}`@`${{ secrets.CF_PROJECT }}`: **${{ job.status }}**."
