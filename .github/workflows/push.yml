@@ -8,7 +8,7 @@ jobs:
       matrix: ${{ steps.versions.outputs.matrix }}
       minimal: ${{ steps.versions.outputs.minimal }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: arnested/go-version-action@v1
       id: versions
       env:
@@ -18,7 +18,7 @@ jobs:
     needs: go-versions
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         path: go/src/arnested.dk/go/triagebot
     - name: Setup Go ${{ needs.go-versions.outputs.minimal }}
@@ -40,7 +40,7 @@ jobs:
       matrix:
         go-version: ${{ fromJSON(needs.go-versions.outputs.matrix) }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup Go ${{ matrix.go-version }}.x
       uses: WillAbides/setup-go-faster@v1.7.0
       with:
@@ -59,7 +59,7 @@ jobs:
     needs: go-versions
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup Go ${{ needs.go-versions.outputs.minimal }}
       uses: WillAbides/setup-go-faster@v1.7.0
       with:
@@ -82,7 +82,7 @@ jobs:
     - build_and_test
     - go-versions
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - run: echo ::set-output name=go-runtime::$(echo -n go${{ needs.go-versions.outputs.minimal }} | tr -d '.')
       id: runtime
     - uses: google-github-actions/deploy-cloud-functions@main
