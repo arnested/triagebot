@@ -9,7 +9,7 @@ jobs:
       minimal: ${{ steps.versions.outputs.minimal }}
     steps:
     - uses: actions/checkout@v3
-    - uses: arnested/go-version-action@v1
+    - uses: arnested/go-version-action@avoid-need-for-github-token
       id: versions
       env:
         GITHUB_TOKEN: ${{ github.token }}
