@@ -9,7 +9,7 @@ jobs:
       minimal: ${{ steps.versions.outputs.minimal }}
     steps:
     - uses: actions/checkout@v3
-    - uses: arnested/go-version-action@avoid-need-for-github-token
+    - uses: arnested/go-version-action@v1
       id: versions
   go_generate:
     name: Check generated code is up to date
