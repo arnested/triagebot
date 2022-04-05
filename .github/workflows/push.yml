@@ -11,8 +11,6 @@ jobs:
     - uses: actions/checkout@v3
     - uses: arnested/go-version-action@v1
       id: versions
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
   go_generate:
     name: Check generated code is up to date
     needs: go-versions
