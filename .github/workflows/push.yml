@@ -23,6 +23,7 @@ jobs:
       uses: WillAbides/setup-go-faster@v1.7.0
       with:
         go-version: ${{ needs.go-versions.outputs.minimal }}
+    - run: go version
     - name: go generate
       env:
         GO111MODULE: 'on'
@@ -44,6 +45,7 @@ jobs:
       with:
         go-version: ${{ matrix.go-version }}.x
         ignore-local: true
+    - run: go version
     - name: go test
       env:
         GO111MODULE: 'on'
@@ -62,6 +64,7 @@ jobs:
       uses: WillAbides/setup-go-faster@v1.7.0
       with:
         go-version: ${{ needs.go-versions.outputs.minimal }}
+    - run: go version
     - name: Install wwhrd
       env:
         GO111MODULE: 'off'
