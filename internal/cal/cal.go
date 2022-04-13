@@ -3,17 +3,26 @@ package cal
 import (
 	"time"
 
-	"github.com/rickar/cal"
+	"github.com/rickar/cal/v2"
+	"github.com/rickar/cal/v2/dk"
 )
 
-func workCalendar() *cal.Calendar {
-	workcal := cal.NewCalendar()
+func workCalendar() *cal.BusinessCalendar {
+	workcal := cal.NewBusinessCalendar()
 
-	cal.AddDanishHolidays(workcal)
-	workcal.AddHoliday(
-		cal.DKJuleaften,
-		cal.DKNytaarsaften,
-	)
+	workcal.AddHoliday(dk.Holidays...)
+	//nolint:exhaustivestruct
+	workcal.AddHoliday(&cal.Holiday{
+		Month: time.December,
+		Day:   24, //nolint:gomnd
+		Func:  cal.CalcDayOfMonth,
+	})
+	//nolint:exhaustivestruct
+	workcal.AddHoliday(&cal.Holiday{
+		Month: time.December,
+		Day:   31, //nolint:gomnd
+		Func:  cal.CalcDayOfMonth,
+	})
 
 	return workcal
 }
@@ -39,7 +48,7 @@ func IsFirstWorkdaySinceDrupalSecurityAnnouncements(now time.Time) bool {
 
 	// Calculate how many workdays have passed since last
 	// Thursday.
-	workdays := cal.CountWorkdays(lastThursday, now) - 1
+	workdays := cal.WorkdaysInRange(lastThursday, now) - 1
 
 	// This is the first workday if zero workdays have passed and
 	// today _is_ a workday.

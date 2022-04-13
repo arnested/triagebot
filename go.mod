@@ -14,7 +14,7 @@ require (
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/onsi/ginkgo v1.16.5 // indirect
 	github.com/onsi/gomega v1.18.1 // indirect
-	github.com/rickar/cal v1.0.5
+	github.com/rickar/cal/v2 v2.1.3
 	github.com/tj/go-termd v0.0.1
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
 	golang.org/x/sys v0.0.0-20220222200937-f2425489ef4c // indirect
