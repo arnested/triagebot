@@ -5,7 +5,7 @@ go 1.16
 require (
 	github.com/alecthomas/chroma v0.10.0 // indirect
 	github.com/andygrunwald/go-jira v1.15.1
-	github.com/containrrr/shoutrrr v0.5.3
+	github.com/containrrr/shoutrrr v0.6.0
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/jimmyfrasche/autoreadme v0.0.0-20210809222737-8f1c593357f8
