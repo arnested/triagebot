@@ -1,5 +1,7 @@
 linters:
   enable-all: true
+  disable:
+    - exhaustruct
 
 linters-settings:
   varnamelen:
