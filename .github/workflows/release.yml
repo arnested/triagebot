@@ -28,7 +28,6 @@ jobs:
         project_id: ${{ secrets.GCF_PROJECT }}
         runtime: ${{ steps.runtime.outputs.go-runtime }}
         entry_point: "Handle"
-        credentials: ${{ secrets.GCLOUD_AUTH }}
         memory_mb: 128
         env_vars: TRIAGEBOT_JIRA_USER=${{ secrets.TRIAGEBOT_JIRA_USER }},TRIAGEBOT_JIRA_PASS=${{ secrets.TRIAGEBOT_JIRA_PASS }},TRIAGEBOT_JIRA_FILTER=22400,ZULIP_TOKEN=${{ secrets.ZULIP_TOKEN }},ZULIP_BOT_MAIL=${{ secrets.ZULIP_BOT_MAIL }},ZULIP_BOT_APIKEY=${{ secrets.ZULIP_BOT_APIKEY }},TZ=Europe/Copenhagen,TRIAGEBOT_JIRA_FILTER_UNRELEASED=28200
     - name: Post status to Zulip
