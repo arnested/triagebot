@@ -1,9 +1,0 @@
----
-whitelist:
-  - MIT
-  - BSD-2-Clause
-  - BSD-3-Clause
-  - Apache-2.0
-
-exceptions:
-  - github.com/aybabtme/rgbterm # Uses MIT but isn't detected automatically
