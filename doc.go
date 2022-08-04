@@ -1,7 +1,5 @@
 /*
-
 Package triagebot lists Jira issues awaiting triage.
-
 */
 package triagebot /* import "arnested.dk/go/triagebot" */
 

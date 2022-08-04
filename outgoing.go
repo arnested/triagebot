@@ -8,8 +8,9 @@ import (
 	"arnested.dk/go/triagebot/internal/jira"
 )
 
-//nolint:tagliatelle
 // ZulipPayload is the outgoing message received from Zulip.
+//
+//nolint:tagliatelle
 type ZulipPayload struct {
 	Data    string `json:"data"`
 	Token   string `json:"token"`
