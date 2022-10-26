@@ -6,12 +6,9 @@ import (
 
 	"arnested.dk/go/triagebot"
 	"arnested.dk/go/triagebot/internal/jira"
-	"github.com/tj/go-termd"
 )
 
 func main() {
-	var markdownCompiler termd.Compiler
-
 	issues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER")
 	if err != nil {
 		//nolint:forbidigo
@@ -32,13 +29,13 @@ func main() {
 	}
 
 	if len(issues) > 0 {
-		result := markdownCompiler.Compile(jira.FormatIssues(issues))
+		result := jira.FormatIssues(issues)
 		//nolint:forbidigo
 		fmt.Printf("%s:\n\n%s", triagebot.LeadText, result)
 	}
 
 	if len(unreleasedIssues) > 0 {
-		unreleasedResult := markdownCompiler.Compile(jira.FormatIssues(unreleasedIssues))
+		unreleasedResult := jira.FormatIssues(unreleasedIssues)
 		//nolint:forbidigo
 		fmt.Printf("\n%s:\n\n%s", triagebot.UnreleasedText, unreleasedResult)
 	}
