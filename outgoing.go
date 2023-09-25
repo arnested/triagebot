@@ -25,7 +25,7 @@ type ZulipResponse struct {
 	Content string `json:"content"`
 }
 
-func outgoing(w http.ResponseWriter, r *http.Request) {
+func outgoing(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
 	response := response()
