@@ -24,7 +24,7 @@ jobs:
       with:
         path: go/src/arnested.dk/go/triagebot
     - name: Setup Go ${{ needs.go-versions.outputs.go-mod-version }}
-      uses: WillAbides/setup-go-faster@v1.12.0
+      uses: WillAbides/setup-go-faster@v1.13.0
       with:
         go-version: ${{ needs.go-versions.outputs.go-mod-version }}
     - run: go version
@@ -45,7 +45,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Setup Go ${{ matrix.go-version }}.x
-      uses: WillAbides/setup-go-faster@v1.12.0
+      uses: WillAbides/setup-go-faster@v1.13.0
       with:
         go-version: ${{ matrix.go-version }}.x
         ignore-local: true
