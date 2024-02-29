@@ -3,7 +3,6 @@ package triagebot
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
@@ -22,7 +21,7 @@ func parseZulipMiddleware(next http.Handler) http.Handler {
 
 		err := json.NewDecoder(req.Body).Decode(&payload)
 		if err != nil {
-			response := fmt.Sprintf("could not parse request body: %s", err.Error())
+			response := "could not parse request body: " + err.Error()
 			http.Error(resp, response, http.StatusBadRequest)
 
 			return
@@ -44,9 +43,10 @@ func parseScheduleMiddleware(next http.Handler) http.Handler {
 
 		//nolint:exhaustivestruct
 		payload := SchedulePayload{}
+
 		err := json.NewDecoder(req.Body).Decode(&payload)
 		if err != nil {
-			response := fmt.Sprintf("could not parse request body: %s", err.Error())
+			response := "could not parse request body: " + err.Error()
 			http.Error(resp, response, http.StatusBadRequest)
 
 			return

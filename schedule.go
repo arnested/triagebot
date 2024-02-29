@@ -79,7 +79,7 @@ func message() (string, bool, error) {
 	}
 
 	// Add an info link to the message.
-	message = fmt.Sprintf("[🛈](https://reload.atlassian.net/wiki/spaces/RW/pages/89030669/Sikkerhedstriage) %s", message)
+	message = "[🛈](https://reload.atlassian.net/wiki/spaces/RW/pages/89030669/Sikkerhedstriage) " + message
 
 	return message, true, nil
 }

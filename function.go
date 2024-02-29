@@ -1,7 +1,6 @@
 package triagebot
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -30,7 +29,7 @@ func init() {
 	}
 
 	if len(missing) > 0 {
-		panic(fmt.Sprintf("Missing environment variables: %s", strings.Join(missing, ", ")))
+		panic("Missing environment variables: " + strings.Join(missing, ", "))
 	}
 }
 
