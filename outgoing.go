@@ -39,7 +39,7 @@ func response() ZulipResponse {
 
 	issues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER")
 	if err != nil {
-		response.Content = fmt.Sprintf("error getting issues: %s", err.Error())
+		response.Content = "error getting issues: " + err.Error()
 
 		return response
 	}
@@ -69,10 +69,8 @@ func response() ZulipResponse {
 	}
 
 	// Add an info link to the response.
-	response.Content = fmt.Sprintf(
-		"[🛈](https://reload.atlassian.net/wiki/spaces/RW/pages/89030669/Sikkerhedstriage) %s",
-		response.Content,
-	)
+	response.Content = "[🛈](https://reload.atlassian.net/wiki/spaces/RW/pages/89030669/Sikkerhedstriage) " +
+		response.Content
 
 	return response
 }
