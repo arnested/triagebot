@@ -16,7 +16,6 @@ func parseZulipMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		//nolint:exhaustivestruct
 		payload := ZulipPayload{}
 
 		err := json.NewDecoder(req.Body).Decode(&payload)
@@ -41,7 +40,6 @@ func parseScheduleMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		//nolint:exhaustivestruct
 		payload := SchedulePayload{}
 
 		err := json.NewDecoder(req.Body).Decode(&payload)

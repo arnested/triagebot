@@ -34,7 +34,6 @@ func outgoing(w http.ResponseWriter, _ *http.Request) {
 }
 
 func response() ZulipResponse {
-	//nolint:exhaustivestruct
 	response := ZulipResponse{}
 
 	issues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER")
