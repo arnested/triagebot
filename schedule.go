@@ -28,7 +28,6 @@ func shoutrrrSender(stream string) (*router.ServiceRouter, error) {
 	query.Set("stream", stream)
 	query.Set("topic", fmt.Sprintf("%d-%02d-%02d", t.Year(), t.Month(), t.Day()))
 
-	//nolint:exhaustivestruct
 	zulipShoutrrrServiceURL := url.URL{
 		User:     url.UserPassword(os.Getenv("ZULIP_BOT_MAIL"), os.Getenv("ZULIP_BOT_APIKEY")),
 		Host:     "reload.zulipchat.com",

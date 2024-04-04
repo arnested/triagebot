@@ -38,12 +38,6 @@ func FormatIssues(issues []jira.Issue) string {
 	output := make([]string, 0, len(issues))
 
 	for _, issue := range issues {
-		// We HTML and URL encode the dash in the issue key to
-		// hide the issue from Hubot (otherwise Hubot will
-		// spam with follow up comments).
-		issueKeyHTML := strings.Replace(issue.Key, "-", "&#x2D;", 1)
-		issueKeyURL := strings.Replace(issue.Key, "-", "%2d", 1)
-
 		assignee := ""
 		if issue.Fields.Assignee != nil {
 			assignee = fmt.Sprintf(" - %s", issue.Fields.Assignee.DisplayName)
@@ -51,7 +45,7 @@ func FormatIssues(issues []jira.Issue) string {
 
 		output = append(
 			output,
-			fmt.Sprintf("* [%s](%s/browse/%s) - %s%s", issueKeyHTML, baseURL, issueKeyURL, issue.Fields.Summary, assignee),
+			fmt.Sprintf("* [%s](%s/browse/%s) - %s%s", issue.Key, baseURL, issue.Key, issue.Fields.Summary, assignee),
 		)
 	}
 
