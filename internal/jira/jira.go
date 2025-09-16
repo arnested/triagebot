@@ -25,7 +25,7 @@ func GetIssues(filterID string) ([]jira.Issue, error) {
 
 	jql := fmt.Sprintf("filter = %s", os.Getenv(filterID))
 
-	issues, _, err := jiraClient.Issue.Search(jql, nil)
+	issues, _, err := jiraClient.Issue.SearchV2JQL(jql, nil)
 	if err != nil {
 		return nil, fmt.Errorf("getting jira issues: %w", err)
 	}
