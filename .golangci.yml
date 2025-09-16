@@ -3,8 +3,11 @@ version: "2"
 linters:
   default: all
   disable:
+    - copyloopvar
     - depguard
     - exhaustruct
+    - intrange
+    - wsl
   settings:
     varnamelen:
       ignore-type-assert-ok: true
@@ -15,10 +18,6 @@ linters:
       - common-false-positives
       - legacy
       - std-error-handling
-    paths:
-      - third_party$
-      - builtin$
-      - examples$
 formatters:
   enable:
     - gci
@@ -27,7 +26,3 @@ formatters:
     - goimports
   exclusions:
     generated: lax
-    paths:
-      - third_party$
-      - builtin$
-      - examples$
