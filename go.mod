@@ -3,7 +3,7 @@ module arnested.dk/go/triagebot
 go 1.21
 
 require (
-	github.com/andygrunwald/go-jira v1.16.1
+	github.com/andygrunwald/go-jira v1.17.0
 	github.com/containrrr/shoutrrr v0.8.0
 	github.com/jimmyfrasche/autoreadme v0.0.0-20210809222737-8f1c593357f8
 	github.com/rickar/cal/v2 v2.1.25
