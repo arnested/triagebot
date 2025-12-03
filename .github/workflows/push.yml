@@ -7,7 +7,7 @@ permissions:
 jobs:
   go-versions:
     name: Lookup go versions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       go-mod-version: ${{ steps.versions.outputs.go-mod-version }}
       matrix: ${{ steps.versions.outputs.matrix }}
@@ -18,13 +18,13 @@ jobs:
   go_generate:
     name: Check generated code is up to date
     needs: go-versions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v6
       with:
         path: go/src/arnested.dk/go/triagebot
     - name: Setup Go ${{ needs.go-versions.outputs.go-mod-version }}
-      uses: WillAbides/setup-go-faster@v1.14.0
+      uses: actions/setup-go@v6
       with:
         go-version: ${{ needs.go-versions.outputs.go-mod-version }}
     - run: go version
@@ -38,17 +38,16 @@ jobs:
   build_and_test:
     name: Build and test
     needs: go-versions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         go-version: ${{ fromJSON(needs.go-versions.outputs.matrix) }}
     steps:
     - uses: actions/checkout@v6
     - name: Setup Go ${{ matrix.go-version }}.x
-      uses: WillAbides/setup-go-faster@v1.14.0
+      uses: actions/setup-go@v6
       with:
         go-version: ${{ matrix.go-version }}.x
-        ignore-local: true
     - run: go version
     - name: go test
       env:
