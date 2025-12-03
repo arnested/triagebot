@@ -7,7 +7,7 @@ permissions:
 jobs:
   go-versions:
     name: Lookup go versions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       go-mod-version: ${{ steps.versions.outputs.go-mod-version }}
       matrix: ${{ steps.versions.outputs.matrix }}
