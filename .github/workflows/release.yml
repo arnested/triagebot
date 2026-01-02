@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v6
-    - uses: arnested/go-version-action@v1
+    - uses: arnested/go-version-action@v2
       id: version
     - run: echo ::set-output name=go-runtime::$(echo -n go${{ steps.version.outputs.go-mod-version }} | tr -d '.')
       id: runtime
