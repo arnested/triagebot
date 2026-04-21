@@ -1,16 +1,19 @@
-package triagebot
+package main
 
 import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
+
+	_ "golang.org/x/crypto/x509roots/fallback"
 )
 
-//nolint:gochecknoinits // It's a perfect place to check required constraints of a Google Cloud Function.
-func init() {
+func main() {
 	missing := []string{}
 
 	envs := []string{
+		"TRIAGEBOT_ADDR",
 		"TRIAGEBOT_JIRA_USER",
 		"TRIAGEBOT_JIRA_PASS",
 		"TRIAGEBOT_JIRA_FILTER",
@@ -30,6 +33,18 @@ func init() {
 
 	if len(missing) > 0 {
 		panic("Missing environment variables: " + strings.Join(missing, ", "))
+	}
+
+	server := &http.Server{
+		Addr:              os.Getenv("TRIAGEBOT_ADDR"),
+		ReadHeaderTimeout: 3 * time.Second, //nolint:mnd
+	}
+
+	http.HandleFunc("/", Handle)
+
+	err := server.ListenAndServe()
+	if err != nil {
+		panic(err)
 	}
 }
 

@@ -1,4 +1,4 @@
-package triagebot
+package main
 
 import (
 	"encoding/json"

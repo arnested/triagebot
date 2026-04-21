@@ -18,6 +18,7 @@ require (
 	github.com/mattn/go-isatty v0.0.21 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/trivago/tgo v1.0.7 // indirect
+	golang.org/x/crypto/x509roots/fallback v0.0.0-20260413170323-a8e9237a216b // indirect
 	golang.org/x/mod v0.35.0 // indirect
 	golang.org/x/sync v0.20.0 // indirect
 	golang.org/x/sys v0.43.0 // indirect

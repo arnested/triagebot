@@ -1,4 +1,4 @@
-package triagebot
+package main
 
 // LeadText is the text leading the list of issues needing triage.
 const LeadText = "Følgende issues mangler triage"
