@@ -7,6 +7,7 @@ require (
 	github.com/containrrr/shoutrrr v0.8.0
 	github.com/jimmyfrasche/autoreadme v0.0.0-20240504231658-aacd7e11c8ba
 	github.com/rickar/cal/v2 v2.1.27
+	golang.org/x/crypto/x509roots/fallback v0.0.0-20260413170323-a8e9237a216b
 )
 
 require (
@@ -35,6 +36,7 @@ require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
+	github.com/klauspost/compress v1.18.0 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.21 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
@@ -56,9 +58,9 @@ require (
 	github.com/trivago/tgo v1.0.7 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	gitlab.com/digitalxero/go-conventional-commit v1.0.7 // indirect
+	go.uber.org/nilaway v0.0.0-20260318203545-ad240b12fb4c // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/crypto v0.50.0 // indirect
-	golang.org/x/crypto/x509roots/fallback v0.0.0-20260413170323-a8e9237a216b // indirect
 	golang.org/x/mod v0.35.0 // indirect
 	golang.org/x/net v0.53.0 // indirect
 	golang.org/x/sync v0.20.0 // indirect
@@ -68,4 +70,7 @@ require (
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
 
-tool github.com/goreleaser/chglog/cmd/chglog
+tool (
+	github.com/goreleaser/chglog/cmd/chglog
+	go.uber.org/nilaway/cmd/nilaway
+)
