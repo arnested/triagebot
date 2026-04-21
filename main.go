@@ -5,6 +5,7 @@ import (
 	"os"
 	"strings"
 	"time"
+	_ "time/tzdata"
 
 	_ "golang.org/x/crypto/x509roots/fallback"
 )
