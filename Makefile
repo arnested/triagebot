@@ -6,11 +6,6 @@ MEMORY=128M
 
 export GO111MODULE=on
 
-doc: README.md
-
-README.md: *.go README.md.template
-	go generate
-
 test: *.go
 	go test ./...
 
