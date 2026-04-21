@@ -1,7 +1,6 @@
 //go:build tools
-// +build tools
 
-package triagebot
+package main
 
 import (
 	// Tools needed for generating readme and code.

@@ -1,8 +1,0 @@
-# Triagebot
-
-{{ .Doc -}}
-
-{{- if .Bugs }}
-## Bugs
-{{range .Bugs}}* {{.}}{{end}}
-{{end -}}

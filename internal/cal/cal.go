@@ -11,16 +11,14 @@ func workCalendar() *cal.BusinessCalendar {
 	workcal := cal.NewBusinessCalendar()
 
 	workcal.AddHoliday(dk.Holidays...)
-	//nolint:exhaustivestruct
 	workcal.AddHoliday(&cal.Holiday{
 		Month: time.December,
-		Day:   24, //nolint:gomnd
+		Day:   24, //nolint:mnd
 		Func:  cal.CalcDayOfMonth,
 	})
-	//nolint:exhaustivestruct
 	workcal.AddHoliday(&cal.Holiday{
 		Month: time.December,
-		Day:   31, //nolint:gomnd
+		Day:   31, //nolint:mnd
 		Func:  cal.CalcDayOfMonth,
 	})
 

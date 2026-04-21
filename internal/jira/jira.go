@@ -23,7 +23,7 @@ func GetIssues(filterID string) ([]jira.Issue, error) {
 		return nil, fmt.Errorf("getting jira client: %w", err)
 	}
 
-	jql := fmt.Sprintf("filter = %s", os.Getenv(filterID))
+	jql := "filter = " + os.Getenv(filterID)
 
 	options := &jira.SearchOptionsV2{
 		Fields: []string{"key", "summary", "assignee"},
@@ -44,7 +44,7 @@ func FormatIssues(issues []jira.Issue) string {
 	for _, issue := range issues {
 		assignee := ""
 		if issue.Fields.Assignee != nil {
-			assignee = fmt.Sprintf(" - %s", issue.Fields.Assignee.DisplayName)
+			assignee = " - " + issue.Fields.Assignee.DisplayName
 		}
 
 		output = append(

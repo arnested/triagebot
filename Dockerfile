@@ -1,0 +1,9 @@
+FROM scratch
+
+EXPOSE 80
+ENV TRIAGEBOT_ADDR :80
+
+ARG TARGETPLATFORM
+COPY $TARGETPLATFORM/triagebot /triagebot
+
+ENTRYPOINT ["/triagebot"]
