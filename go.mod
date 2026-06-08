@@ -6,7 +6,7 @@ require (
 	github.com/andygrunwald/go-jira v1.17.0
 	github.com/containrrr/shoutrrr v0.8.0
 	github.com/jimmyfrasche/autoreadme v0.0.0-20240504231658-aacd7e11c8ba
-	github.com/rickar/cal/v2 v2.1.27
+	github.com/rickar/cal/v2 v2.1.28
 	golang.org/x/crypto/x509roots/fallback v0.0.0-20260413170323-a8e9237a216b
 )
 
