@@ -49,3 +49,13 @@ jobs:
           args: release
         env:
           GITHUB_TOKEN: ${{ github.token }}
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-24.04
+    needs:
+      - bump-version
+    steps:
+      - name: Delete old container packages
+        uses: dataaxiom/ghcr-cleanup-action@v1
+        with:
+          token: ${{ github.token }}
