@@ -67,9 +67,5 @@ func response() ZulipResponse {
 		)
 	}
 
-	// Add an info link to the response.
-	response.Content = "[🛈](https://reload.atlassian.net/wiki/spaces/RW/pages/89030669/Sikkerhedstriage) " +
-		response.Content
-
 	return response
 }

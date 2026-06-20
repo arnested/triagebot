@@ -77,9 +77,6 @@ func message() (string, bool, error) {
 		message = fmt.Sprintf("%s, %s", tag, message)
 	}
 
-	// Add an info link to the message.
-	message = "[🛈](https://reload.atlassian.net/wiki/spaces/RW/pages/89030669/Sikkerhedstriage) " + message
-
 	return message, true, nil
 }
 
