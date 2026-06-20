@@ -55,14 +55,14 @@ func response() ZulipResponse {
 	}
 
 	if len(issues) > 0 {
-		response.Content = fmt.Sprintf("%s:\n\n%s", LeadText, jira.FormatIssues(issues))
+		response.Content = fmt.Sprintf(LeadText+":\n\n%s", len(issues), jira.FormatIssues(issues))
 	}
 
 	if len(unreleasedIssues) > 0 {
 		response.Content = fmt.Sprintf(
-			"%s\n\n\n%s:\n\n%s",
+			"%s\n\n\n"+UnreleasedText+":\n\n%s",
 			response.Content,
-			UnreleasedText,
+			len(unreleasedIssues),
 			jira.FormatIssues(unreleasedIssues),
 		)
 	}

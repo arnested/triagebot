@@ -1,7 +1,7 @@
 package main
 
 // LeadText is the text leading the list of issues needing triage.
-const LeadText = "Følgende issues mangler triage"
+const LeadText = "Følgende %d issues mangler triage"
 
 // NoIssuesNeedTriage is the text when no issues need triage.
 const NoIssuesNeedTriage = "Ingen issues mangler triage"
@@ -10,4 +10,4 @@ const NoIssuesNeedTriage = "Ingen issues mangler triage"
 const ExternalUserText = "Kun brugere med en *@reload.dk* adresse kan se hvad der mangler triage"
 
 // UnreleasedText is the text leading the list of unreleased issues.
-const UnreleasedText = "Følgende issues der er vurderet critical/blocker er endnu ikke releaset"
+const UnreleasedText = "Følgende %d issues der er vurderet critical/blocker er endnu ikke releaset"
