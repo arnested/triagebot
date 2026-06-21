@@ -7,7 +7,6 @@ import (
 	"os"
 	"time"
 
-	"arnested.dk/go/triagebot/internal/cal"
 	"arnested.dk/go/triagebot/internal/jira"
 	"github.com/containrrr/shoutrrr"
 	"github.com/containrrr/shoutrrr/pkg/router"
@@ -51,10 +50,6 @@ func message() (string, bool, error) {
 	unreleasedIssues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER_UNRELEASED")
 	if err != nil {
 		return "", false, fmt.Errorf("jira unreleased filter: %w", err)
-	}
-
-	if len(issues) == 0 && len(unreleasedIssues) == 0 && !cal.IsFirstWorkdaySinceDrupalSecurityAnnouncements(time.Now()) {
-		return "", false, nil
 	}
 
 	message := fmt.Sprintln(NoIssuesNeedTriage)
