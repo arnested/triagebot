@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"net/http"
@@ -28,6 +29,9 @@ func main() {
 		"ZULIP_TOKEN",
 		"ZULIP_BOT_MAIL",
 		"ZULIP_BOT_APIKEY",
+		"FORECAST_ACCOUNT_ID",
+		"FORECAST_ACCESS_TOKEN",
+		"FORECAST_TEAM",
 	}
 
 	for _, env := range envs {
@@ -43,7 +47,7 @@ func main() {
 	}
 
 	if *cli {
-		resp := response()
+		resp := response(context.Background())
 		fmt.Printf("%s\n", resp.Content) //nolint:forbidigo
 
 		return

@@ -5,6 +5,7 @@ go 1.26.4
 require (
 	github.com/andygrunwald/go-jira v1.17.0
 	github.com/containrrr/shoutrrr v0.8.0
+	github.com/joefitzgerald/forecast v1.4.0
 	github.com/rickar/cal/v2 v2.1.28
 	golang.org/x/crypto/x509roots/fallback v0.0.0-20260413170323-a8e9237a216b
 )

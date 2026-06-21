@@ -13,8 +13,6 @@ import (
 	"github.com/containrrr/shoutrrr/pkg/router"
 )
 
-const tag = "@**all**"
-
 // SchedulePayload is the message posted from Google Cloud Scheduler.
 type SchedulePayload struct {
 	Stream string `json:"stream"`
@@ -60,21 +58,13 @@ func message() (string, bool, error) {
 	}
 
 	message := fmt.Sprintln(NoIssuesNeedTriage)
-	needsAction := false
 
 	if len(issues) > 0 {
 		message = fmt.Sprintf("%s:\n\n%s", LeadText, jira.FormatIssues(issues))
-		needsAction = true
 	}
 
 	if len(unreleasedIssues) > 0 {
 		message = fmt.Sprintf("%s\n\n\n%s:\n\n%s", message, UnreleasedText, jira.FormatIssues(unreleasedIssues))
-		needsAction = true
-	}
-
-	// Only tag people if they need to do something - and if it's a work day.
-	if needsAction && cal.IsWorkday(time.Now()) {
-		message = fmt.Sprintf("%s, %s", tag, message)
 	}
 
 	return message, true, nil
