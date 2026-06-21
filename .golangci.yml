@@ -6,6 +6,7 @@ linters:
     - copyloopvar
     - depguard
     - exhaustruct
+    - gomodguard
     - intrange
     - wsl
   settings:

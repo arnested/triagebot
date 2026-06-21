@@ -71,7 +71,10 @@ func Handle(resp http.ResponseWriter, req *http.Request) {
 		chain := parseZulipMiddleware(
 			authenticationOutgoingMiddleware(
 				authorizationMiddleware(
-					reactMiddleware(outgoingHandler))))
+					reactMiddleware(outgoingHandler),
+				),
+			),
+		)
 		chain.ServeHTTP(resp, req)
 
 	// Handle schedules events from Google Cloud Scheduler.
