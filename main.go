@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -11,6 +13,10 @@ import (
 )
 
 func main() {
+	cli := flag.Bool("cli", false, "Run as CLI command")
+
+	flag.Parse()
+
 	missing := []string{}
 
 	envs := []string{
@@ -34,6 +40,13 @@ func main() {
 
 	if len(missing) > 0 {
 		panic("Missing environment variables: " + strings.Join(missing, ", "))
+	}
+
+	if *cli {
+		resp := response()
+		fmt.Printf("%s\n", resp.Content) //nolint:forbidigo
+
+		return
 	}
 
 	server := &http.Server{
