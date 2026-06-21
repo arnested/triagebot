@@ -7,13 +7,10 @@ import (
 	"os"
 	"time"
 
-	"arnested.dk/go/triagebot/internal/cal"
 	"arnested.dk/go/triagebot/internal/jira"
 	"github.com/containrrr/shoutrrr"
 	"github.com/containrrr/shoutrrr/pkg/router"
 )
-
-const tag = "@**all**"
 
 // SchedulePayload is the message posted from Google Cloud Scheduler.
 type SchedulePayload struct {
@@ -55,30 +52,15 @@ func message() (string, bool, error) {
 		return "", false, fmt.Errorf("jira unreleased filter: %w", err)
 	}
 
-	if len(issues) == 0 && len(unreleasedIssues) == 0 && !cal.IsFirstWorkdaySinceDrupalSecurityAnnouncements(time.Now()) {
-		return "", false, nil
-	}
-
 	message := fmt.Sprintln(NoIssuesNeedTriage)
-	needsAction := false
 
 	if len(issues) > 0 {
 		message = fmt.Sprintf("%s:\n\n%s", LeadText, jira.FormatIssues(issues))
-		needsAction = true
 	}
 
 	if len(unreleasedIssues) > 0 {
 		message = fmt.Sprintf("%s\n\n\n%s:\n\n%s", message, UnreleasedText, jira.FormatIssues(unreleasedIssues))
-		needsAction = true
 	}
-
-	// Only tag people if they need to do something - and if it's a work day.
-	if needsAction && cal.IsWorkday(time.Now()) {
-		message = fmt.Sprintf("%s, %s", tag, message)
-	}
-
-	// Add an info link to the message.
-	message = "[🛈](https://reload.atlassian.net/wiki/spaces/RW/pages/89030669/Sikkerhedstriage) " + message
 
 	return message, true, nil
 }

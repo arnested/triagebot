@@ -6,7 +6,9 @@ linters:
     - copyloopvar
     - depguard
     - exhaustruct
+    - gomodguard
     - intrange
+    - tagliatelle
     - wsl
   settings:
     varnamelen:

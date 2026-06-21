@@ -1,6 +1,9 @@
 package main
 
 import (
+	"context"
+	"flag"
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -11,6 +14,10 @@ import (
 )
 
 func main() {
+	cli := flag.Bool("cli", false, "Run as CLI command")
+
+	flag.Parse()
+
 	missing := []string{}
 
 	envs := []string{
@@ -22,6 +29,9 @@ func main() {
 		"ZULIP_TOKEN",
 		"ZULIP_BOT_MAIL",
 		"ZULIP_BOT_APIKEY",
+		"FORECAST_ACCOUNT_ID",
+		"FORECAST_ACCESS_TOKEN",
+		"FORECAST_TEAM",
 	}
 
 	for _, env := range envs {
@@ -34,6 +44,13 @@ func main() {
 
 	if len(missing) > 0 {
 		panic("Missing environment variables: " + strings.Join(missing, ", "))
+	}
+
+	if *cli {
+		resp := response(context.Background())
+		fmt.Printf("%s\n", resp.Content) //nolint:forbidigo
+
+		return
 	}
 
 	server := &http.Server{
@@ -58,7 +75,10 @@ func Handle(resp http.ResponseWriter, req *http.Request) {
 		chain := parseZulipMiddleware(
 			authenticationOutgoingMiddleware(
 				authorizationMiddleware(
-					reactMiddleware(outgoingHandler))))
+					reactMiddleware(outgoingHandler),
+				),
+			),
+		)
 		chain.ServeHTTP(resp, req)
 
 	// Handle schedules events from Google Cloud Scheduler.

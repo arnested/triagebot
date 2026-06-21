@@ -1,11 +1,15 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 
+	"arnested.dk/go/triagebot/internal/cal"
 	"arnested.dk/go/triagebot/internal/jira"
+	"arnested.dk/go/triagebot/internal/team"
 )
 
 // ZulipPayload is the outgoing message received from Zulip.
@@ -25,15 +29,15 @@ type ZulipResponse struct {
 	Content string `json:"content"`
 }
 
-func outgoing(w http.ResponseWriter, _ *http.Request) {
+func outgoing(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
-	response := response()
+	response := response(r.Context())
 	//nolint:errchkjson
 	_ = json.NewEncoder(w).Encode(response)
 }
 
-func response() ZulipResponse {
+func response(ctx context.Context) ZulipResponse {
 	response := ZulipResponse{}
 
 	issues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER")
@@ -50,26 +54,31 @@ func response() ZulipResponse {
 		return response
 	}
 
+	needsAction := false
+
 	if len(issues) == 0 {
 		response.Content = fmt.Sprintln(NoIssuesNeedTriage)
 	}
 
 	if len(issues) > 0 {
-		response.Content = fmt.Sprintf("%s:\n\n%s", LeadText, jira.FormatIssues(issues))
+		response.Content = fmt.Sprintf(LeadText+":\n\n%s", len(issues), jira.FormatIssues(issues))
+		needsAction = true
 	}
 
 	if len(unreleasedIssues) > 0 {
 		response.Content = fmt.Sprintf(
-			"%s\n\n\n%s:\n\n%s",
+			"%s\n\n\n"+UnreleasedText+":\n\n%s",
 			response.Content,
-			UnreleasedText,
+			len(unreleasedIssues),
 			jira.FormatIssues(unreleasedIssues),
 		)
+		needsAction = true
 	}
 
-	// Add an info link to the response.
-	response.Content = "[🛈](https://reload.atlassian.net/wiki/spaces/RW/pages/89030669/Sikkerhedstriage) " +
-		response.Content
+	// Only tag people if they need to do something - and if it's a work day.
+	if needsAction && cal.IsWorkday(time.Now()) {
+		response.Content += "\n\n" + team.Triage(ctx)
+	}
 
 	return response
 }
