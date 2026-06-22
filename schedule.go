@@ -76,7 +76,7 @@ func message(ctx context.Context) (string, bool, error) {
 
 	// Only tag people if they need to do something - and if it's a work day.
 	if needsAction && cal.IsWorkday(time.Now()) {
-		message += "\n\n" + team.Triage(ctx)
+		message += "\n\n" + team.Triage(ctx, false)
 	}
 
 	return message, true, nil

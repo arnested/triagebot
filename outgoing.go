@@ -77,7 +77,7 @@ func response(ctx context.Context) ZulipResponse {
 
 	// Only tag people if they need to do something - and if it's a work day.
 	if needsAction && cal.IsWorkday(time.Now()) {
-		response.Content += "\n\n" + team.Triage(ctx)
+		response.Content += "\n\n" + team.Triage(ctx, true)
 	}
 
 	return response
