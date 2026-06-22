@@ -29,12 +29,17 @@ type Payload struct {
 	User User `json:"user"`
 }
 
-func (user User) Tag() string {
-	return "@**" + user.FullName + "|" + strconv.Itoa(user.UserID) + "**"
+func (user User) Tag(silent bool) string {
+	tag := "@"
+	if silent {
+		tag = "@_"
+	}
+
+	return tag + "**" + user.FullName + "|" + strconv.Itoa(user.UserID) + "**"
 }
 
 // UserByEmail get a Zulip user by their email.
-func UserByEmail(ctx context.Context, email string) (string, error) {
+func UserByEmail(ctx context.Context, email string, silentTag bool) (string, error) {
 	//nolint:exhaustruct
 	apiURL := url.URL{
 		User:   url.UserPassword(os.Getenv("ZULIP_BOT_MAIL"), os.Getenv("ZULIP_BOT_APIKEY")),
@@ -73,7 +78,7 @@ func UserByEmail(ctx context.Context, email string) (string, error) {
 		return "", fmt.Errorf("%w", errInvalidZulipUser)
 	}
 
-	return payload.User.Tag(), nil
+	return payload.User.Tag(silentTag), nil
 }
 
 // ThumbsUp on a message.

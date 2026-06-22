@@ -11,7 +11,7 @@ import (
 	"github.com/joefitzgerald/forecast"
 )
 
-func Triage(ctx context.Context) string {
+func Triage(ctx context.Context, silentTag bool) string {
 	api := forecast.New(
 		"https://api.forecastapp.com",
 		os.Getenv("FORECAST_ACCOUNT_ID"),
@@ -40,7 +40,7 @@ func Triage(ctx context.Context) string {
 				continue
 			}
 
-			tag, err := zulip.UserByEmail(ctx, person.Email)
+			tag, err := zulip.UserByEmail(ctx, person.Email, silentTag)
 			if err != nil {
 				triageTeam.WriteString(person.Email + "\n")
 			} else {
