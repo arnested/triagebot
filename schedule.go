@@ -55,11 +55,16 @@ func message() (string, bool, error) {
 	message := fmt.Sprintln(NoIssuesNeedTriage)
 
 	if len(issues) > 0 {
-		message = fmt.Sprintf("%s:\n\n%s", LeadText, jira.FormatIssues(issues))
+		message = fmt.Sprintf(LeadText+":\n\n%s", len(issues), jira.FormatIssues(issues))
 	}
 
 	if len(unreleasedIssues) > 0 {
-		message = fmt.Sprintf("%s\n\n\n%s:\n\n%s", message, UnreleasedText, jira.FormatIssues(unreleasedIssues))
+		message = fmt.Sprintf(
+			"%s\n\n\n"+UnreleasedText+":\n\n%s",
+			message,
+			len(unreleasedIssues),
+			jira.FormatIssues(unreleasedIssues),
+		)
 	}
 
 	return message, true, nil
