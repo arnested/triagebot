@@ -1,13 +1,16 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"net/url"
 	"os"
 	"time"
 
+	"arnested.dk/go/triagebot/internal/cal"
 	"arnested.dk/go/triagebot/internal/jira"
+	"arnested.dk/go/triagebot/internal/team"
 	"github.com/containrrr/shoutrrr"
 	"github.com/containrrr/shoutrrr/pkg/router"
 )
@@ -41,7 +44,7 @@ func shoutrrrSender(stream string) (*router.ServiceRouter, error) {
 	return sender, nil
 }
 
-func message() (string, bool, error) {
+func message(ctx context.Context) (string, bool, error) {
 	issues, err := jira.GetIssues("TRIAGEBOT_JIRA_FILTER")
 	if err != nil {
 		return "", false, fmt.Errorf("jira filter: %w", err)
@@ -54,12 +57,26 @@ func message() (string, bool, error) {
 
 	message := fmt.Sprintln(NoIssuesNeedTriage)
 
+	needsAction := false
+
 	if len(issues) > 0 {
-		message = fmt.Sprintf("%s:\n\n%s", LeadText, jira.FormatIssues(issues))
+		message = fmt.Sprintf(LeadText+":\n\n%s", len(issues), jira.FormatIssues(issues))
+		needsAction = true
 	}
 
 	if len(unreleasedIssues) > 0 {
-		message = fmt.Sprintf("%s\n\n\n%s:\n\n%s", message, UnreleasedText, jira.FormatIssues(unreleasedIssues))
+		message = fmt.Sprintf(
+			"%s\n\n\n"+UnreleasedText+":\n\n%s",
+			message,
+			len(unreleasedIssues),
+			jira.FormatIssues(unreleasedIssues),
+		)
+		needsAction = true
+	}
+
+	// Only tag people if they need to do something - and if it's a work day.
+	if needsAction && cal.IsWorkday(time.Now()) {
+		message += "\n\n" + team.Triage(ctx)
 	}
 
 	return message, true, nil
@@ -82,7 +99,7 @@ func schedule(resp http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	message, ok, err := message()
+	message, ok, err := message(req.Context())
 	if err != nil {
 		http.Error(resp, err.Error(), http.StatusServiceUnavailable)
 
