@@ -5,7 +5,7 @@ go 1.27.1
 require (
 	github.com/andygrunwald/go-jira v1.17.0
 	github.com/containrrr/shoutrrr v0.8.0
-	github.com/joefitzgerald/forecast v1.4.0
+	github.com/joefitzgerald/forecast v1.5.1
 	github.com/rickar/cal/v2 v2.1.31
 	golang.org/x/crypto/x509roots/fallback v0.0.0-20260413170323-a8e9237a216b
 )
@@ -60,7 +60,7 @@ require (
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	gitlab.com/digitalxero/go-conventional-commit v1.0.7 // indirect
 	go.uber.org/nilaway v0.0.0-20260318203545-ad240b12fb4c // indirect
-	go.yaml.in/yaml/v3 v3.0.4 // indirect
+	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	golang.org/x/crypto v0.53.0 // indirect
 	golang.org/x/mod v0.37.0 // indirect
 	golang.org/x/net v0.56.0 // indirect
