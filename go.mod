@@ -1,6 +1,6 @@
 module arnested.dk/go/triagebot
 
-go 1.27.3
+go 1.27.4
 
 require (
 	github.com/andygrunwald/go-jira v1.17.0
